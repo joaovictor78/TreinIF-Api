@@ -22,7 +22,6 @@ module.exports = {
       refresh_token: {
        type: Sequelize.STRING,
        allowNull: false, 
-       unique: true
       },
       expire_in: {
         type: Sequelize.INTEGER,

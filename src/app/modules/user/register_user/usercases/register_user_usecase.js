@@ -18,7 +18,7 @@ class RegisterUserUseCase{
       return {user, token: {acess_token, refresh_token}};
     } catch (e){
         console.log(e);
-        return "Error registering user";
+        throw "Error registering user";
     }
   }
 } 

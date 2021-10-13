@@ -9,6 +9,7 @@ routes.use('/login', AuthenticateUserController.login);
 routes.use('/register-user', RegisterUserController.register);
 routes.use('/refresh-token', RefreshTokenController.refreshToken);
 routes.use('/forgot-password', ResetPasswordUserController.forgotPassword);
+routes.use('/reset-password', ResetPasswordUserController.resetPassword);
 routes.use('/order', permissions.isAdmin, OperatorRoutes);
 
 module.exports = routes;

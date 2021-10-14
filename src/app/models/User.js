@@ -4,7 +4,6 @@ module.exports = (sequelize, DataTypes) => {
         full_name: DataTypes.STRING(50),
         email: DataTypes.STRING(70),
         avatar_url: DataTypes.STRING(80),
-        password_reset_token: DataTypes.STRING,
         is_free_plan: DataTypes.INTEGER,
         password: DataTypes.VIRTUAL,
         password_hash: DataTypes.STRING

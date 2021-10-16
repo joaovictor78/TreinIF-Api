@@ -1,6 +1,7 @@
 const GetUser = require("../authenticate_user/adapters/AuthenticateUserAdapter");
-const UpdateRefreshTokenAdapter = require("../reset_password_user/adapters/update_refresh_token_adapter");
-const UpdatePasswordHashAdapter = require("../reset_password_user/adapters/update_password_hash_adapter");
+const UpdateTokenResetPasswordAdapter = require("../reset_password_user/adapters/update_token_reset_password_adapter");
+const GetTokenResetPasswordAdapter = require("../reset_password_user/adapters/get_token_reset_password_adapter");
+const UpdatePasswordAdapter = require("../reset_password_user/adapters/update_password_adapter");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const dayjs = require("dayjs");
@@ -15,9 +16,11 @@ class ResetPasswordUserController {
             if (!user) {
                 return res.status(400).send({ error: "User not found" });
             } else {
+                console.log("Caiu aqui");
+                console.log(user)
                 const code = crypto.randomBytes(2).toString("hex").toUpperCase();
                 const expireIn = dayjs().add(30, 'minute').unix();
-                const refreshPasswordToken = await UpdatePasswordHashAdapter.updateByToken(email, code, expireIn);
+                const refreshPasswordToken = await UpdateTokenResetPasswordAdapter.updateOrCreateTokenResetPassword(user.id, code, expireIn);
                 console.log(refreshPasswordToken, expireIn, code);
                 mailer.sendMail({
                     to: email,
@@ -35,9 +38,16 @@ class ResetPasswordUserController {
     async resetPassword(req, res) {
         const { password_reset_token, new_password, email } = req.body;
         const user = await GetUser.getUser(email);
-        if (user.password_reset_token === password_reset_token) {
+        const token =  await  GetTokenResetPasswordAdapter.getTokenResetPassword(user.id);
+        if(!dayjs().isAfter(dayjs().unix(token.expire_in))){
+            return res.status(404).send("Expired code");
+         } 
+        if (token.password_reset_token === password_reset_token) {
             const newPasswordHash = await bcrypt.hash(new_password, 8);
-            UpdateRefreshTokenAdapter.getAndUpdateUser(email, newPasswordHash);
+            await UpdatePasswordAdapter.updatePassowrd(user.email, newPasswordHash);
+            res.send({message: "Password changed successfully"});
+        } else{
+            res.status(404).send({error: "code invalid"});
         }
 
     }

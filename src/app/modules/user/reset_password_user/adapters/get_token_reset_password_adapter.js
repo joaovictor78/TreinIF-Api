@@ -7,8 +7,7 @@ class GetTokenResetPasswordAdapter{
             return tokenResetPassword;
         } catch (e){
             throw "Error to get Token Reset Password";
-        }
-      
+        } 
     }
 }
 module.exports = new GetTokenResetPasswordAdapter();

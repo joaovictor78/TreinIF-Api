@@ -12,7 +12,6 @@ class UpdateTokenResetPassword {
             if (!!getResetPasswordToken) {
                 newResetPasswordToken = await PasswordResetToken.update({ password_reset_token: refreshPasswordToken, expire_in: expiresIn }, { where: { user_id } });
             } else {
-                console.log("AQUI");
                 newResetPasswordToken = await PasswordResetToken.create({ password_reset_token: refreshPasswordToken, user_id, expire_in: expiresIn });
             }
             return newResetPasswordToken;

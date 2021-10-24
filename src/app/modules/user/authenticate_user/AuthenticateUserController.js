@@ -6,7 +6,7 @@ class AuthenticateUserController{
             const user = await AuthenticateUserUseCase.auth({email, password});
             return res.send(user);   
         }catch(e){
-            return res.status(401).send();
+            return res.status(401).send({error: "Email or password invalid!"});
         }
      
     }

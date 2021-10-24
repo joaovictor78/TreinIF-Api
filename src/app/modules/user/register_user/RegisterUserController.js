@@ -13,7 +13,7 @@ class RegisterUserController {
             const user = await createUser.create(req.body);
             return res.send(user);
         } catch (e){
-            return res.status(401).send("Erro ao criar usuario");
+            return res.status(400).send({message:  e});
         }
        
        

@@ -9,7 +9,7 @@ class GenerateRefreshTokenProvider {
                 await RefreshToken.destroy({ where: { user_id: userId } });
             }    
             const expireIn = dayjs().add(1, "month").unix();
-            const refreshToken = jwt.sign({ userId }, process.env.APP_JWTSECRET, { expiresIn: expireIn });
+            const refreshToken = jwt.sign({ userId, expireIn }, process.env.APP_JWTSECRET, { expiresIn: expireIn });
             const generateRefreshToken = await RefreshToken.create({
                 user_id: userId,
                 refresh_token: refreshToken,

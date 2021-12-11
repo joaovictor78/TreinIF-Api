@@ -22,10 +22,6 @@ module.exports = {
         type: Sequelize.STRING(80),
         allowNull: false
       },
-      is_free_plan: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
       password_hash: {
         type: Sequelize.STRING,
         allowNull: false

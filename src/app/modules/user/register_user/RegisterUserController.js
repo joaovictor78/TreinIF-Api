@@ -14,9 +14,7 @@ class RegisterUserController {
             return res.send(user);
         } catch (e){
             return res.status(400).send({message:  e});
-        }
-       
-       
+        }  
     }
 }
 module.exports = new RegisterUserController();

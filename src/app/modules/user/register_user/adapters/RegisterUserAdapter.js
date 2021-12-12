@@ -1,16 +1,17 @@
 const { User } = require("../../../../models");
-const { Roles } = require("../../../../models");
+
 class RegisterUserAdapter {
     async register(user) {
         try {
+            user.role_id = user.role;
+            delete user.role;
             const data = await User.create(user);
-            const { id, full_name, email, avatar_url } = data;
-            const role = await Roles.create({user_id: id});
-            console.log(role);
-            return { id, full_name, email, avatar_url, role };
+            const { id, full_name, email, avatar_url, role_id } = data;
+            return { id, full_name, email, avatar_url, role_id };
         }
         catch (e) {
-            return null;
+            console.log(e);
+            throw "There was an error saving the record.";
         }
     }
 }

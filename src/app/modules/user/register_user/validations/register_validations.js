@@ -9,11 +9,14 @@ module.exports = (data) => {
     function validatePassword(password){
         return password.length < 8;
     }
-    if (!validateEmail(email)) {
+    if (!validateEmail(email) && !validatePassword(password)) {
+        throw {message: "Invalid email format ans password are incorrect format"};
+    }
+    else if (!validateEmail(email)) {
         throw {message: "Invalid email format"};
     }
 
-    if (!validatePassword) {
+   else if (!validatePassword(password)) {
         throw {message: "The password must have at least 8 characters, 1 number, 1 uppercase letter and 1 lowercase letter"};
     }
 }

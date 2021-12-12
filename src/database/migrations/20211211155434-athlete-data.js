@@ -25,6 +25,35 @@ module.exports = {
       RG: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+
+      user_id:{
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      course_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'courses',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
 

@@ -4,12 +4,10 @@ const AuthenticateUserController = require("../src/app/modules/user/authenticate
 const RefreshTokenController = require("../src/app/modules/user/refresh_token_user/RefreshTokenUserController");
 const ResetPasswordUserController = require("../src/app/modules/user/reset_password_user/ResetPassowordUserController")
 const permissions = require("../src/app/services/auth_service"); 
-const OperatorRoutes = require("./routes/operators");
 routes.use('/login', AuthenticateUserController.login);
 routes.use('/register', RegisterUserController.register);
 routes.use('/refresh-token', RefreshTokenController.refreshToken);
 routes.use('/forgot-password', ResetPasswordUserController.forgotPassword);
 routes.use('/reset-password', ResetPasswordUserController.resetPassword);
-routes.use('/order', permissions.isAdmin, OperatorRoutes);
 
 module.exports = routes;

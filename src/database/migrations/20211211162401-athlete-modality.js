@@ -1,21 +1,47 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
-  },
+   up: async (queryInterface, Sequelize) => {
+      await queryInterface.createTable('athlete_modality', {
+         id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false
+         },
+         user_id: {
+            allowNull: false,
+            type: Sequelize.INTEGER,
+            references: {
+               model: 'users',
+               key: 'id'
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+         },
+         modality_id: {
+            allowNull: false,
+            type: Sequelize.INTEGER,
+            references: {
+               model: 'modalities',
+               key: 'id'
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+         },
+         created_at: {
+            type: Sequelize.DATE,
+            allowNull: false
+          },
+          updated_at: {
+            type: Sequelize.DATE,
+            allowNull: false
+          }
+      });
 
-  down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+   },
+
+   down: async (queryInterface, Sequelize) => {
+      await queryInterface.dropTable('athlete_modality');
+   }
 };

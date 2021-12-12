@@ -7,12 +7,16 @@ module.exports = (sequelize, DataTypes) => {
         is_free_plan: DataTypes.INTEGER,
         password: DataTypes.VIRTUAL,
         password_hash: DataTypes.STRING
-    }, {
-        hooks: {
-            beforeSave: async user => {
-                user.password_hash = await bcrypt.hash(user.password, 8);
+    },
+        {
+            hooks: {
+                beforeSave: async user => {
+                    user.password_hash = await bcrypt.hash(user.password, 8);
+                }
             }
-        }
-    });
+        });
+    User.associate = function (models) {
+        User.belongsTo(models.Roles, { foreignKey: 'role_id', as: 'role' })
+    };
     return User;
 }

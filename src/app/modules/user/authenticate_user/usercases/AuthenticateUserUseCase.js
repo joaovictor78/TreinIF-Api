@@ -6,6 +6,7 @@ class AuthenticateUserUseCase{
     async auth(user_credentials){
         try{
             const user = await AuthenticateUserAdapter.getUser(user_credentials.email);
+            console.log(user);
             if(!user){
                 throw { message: "Email or password invalid"};
             }
@@ -14,6 +15,7 @@ class AuthenticateUserUseCase{
             }
             const acess_token = GenerateTokenProvider.execute(user.id);
             const refresh_token = await GenerateRefreshTokenProvider.execute(user.id);
+            delete user.password_hash;
             return {user, token: {acess_token, refresh_token}};
         } catch(e){
             throw {message: "Login erro"};

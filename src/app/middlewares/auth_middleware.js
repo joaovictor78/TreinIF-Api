@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config({
     path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
 });
-module.exports = (req, res, next) => {
+module.exports = function(req, res, next) {
     const authHeader = req.headers.authorization
     if (!authHeader) {
         return res.status(401).send({ erro: "Token não informado" })

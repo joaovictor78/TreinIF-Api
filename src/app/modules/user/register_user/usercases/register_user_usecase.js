@@ -2,10 +2,10 @@ const registerValidation = require("../validations/register_validations");
 const GenerateTokenProvider = require("../../_provider/GenereteTokenProvider");
 const GenereteRefreshTokenProvider = require("../../_provider/GenereteRefreshTokenProvider");
 const RolesEnum = require("../../../../utils/roles_enum");
-
 class RegisterUserUseCase {
-  constructor(userAdapter) {
+  constructor(userAdapter, athleteDataAdapter) {
     this.userAdapter = userAdapter;
+    this.athleteDataAdapter = athleteDataAdapter;
   }
   async create(user) {
     this.user = user;
@@ -17,8 +17,18 @@ class RegisterUserUseCase {
       }
       const acess_token = GenerateTokenProvider.execute({ id: user.id, role: user.role });
       const refresh_token = await GenereteRefreshTokenProvider.execute(user.id);
-
-      return { user, token: { acess_token, refresh_token } };
+      console.log(user.id);
+      if (user.role_id == RolesEnum.Athlete) {
+        const { blood_type, birth_date, CPF, RG, course_id, role_id } = this.user;
+        const athleteDataDTO = { blood_type, birth_date, CPF, RG, course_id, role_id, user_id: user.id };
+        const athleteData = await this.athleteDataAdapter.registerAthleteData(athleteDataDTO);
+        const userDTO = Object.assign(user, athleteData);
+        console.log("asdlfaçsf1111");
+        return { user: userDTO, token: { acess_token, refresh_token } };
+      } else {
+        console.log("asdlfaçsf");
+        return { user, token: { acess_token, refresh_token } };
+      }
     } catch (e) {
       console.log(e);
       throw e;

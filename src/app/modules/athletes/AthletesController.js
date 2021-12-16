@@ -4,7 +4,11 @@ class AthletesController{
         try{
            const data = req.body;
            const result = await registerUserCase.registerAthleteSupplementaryData(data);
+           if(!!result){
+               res.status(200).send({data: result});
+           }
         }catch(e){
+            res.status(400).send({message: "Occurred one or more errors then created the user"})
             console.log(e);
         }
     }

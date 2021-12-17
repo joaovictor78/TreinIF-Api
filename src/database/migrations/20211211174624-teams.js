@@ -9,6 +9,10 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
+      code: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       name: {
         allowNull: false,
         type: Sequelize.STRING
@@ -16,6 +20,16 @@ module.exports = {
       description: {
         allowNull: false, 
         type: Sequelize.STRING
+      },
+      trainer_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       modality_id: {
         allowNull: false,

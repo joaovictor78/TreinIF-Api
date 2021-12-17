@@ -23,10 +23,8 @@ class RegisterUserUseCase {
         const athleteDataDTO = { blood_type, birth_date, CPF, RG, course_id, role_id, user_id: user.id };
         const athleteData = await this.athleteDataAdapter.registerAthleteData(athleteDataDTO);
         const userDTO = Object.assign(user, athleteData);
-        console.log("asdlfaçsf1111");
         return { user: userDTO, token: { acess_token, refresh_token } };
       } else {
-        console.log("asdlfaçsf");
         return { user, token: { acess_token, refresh_token } };
       }
     } catch (e) {
@@ -35,4 +33,4 @@ class RegisterUserUseCase {
     }
   }
 }
-module.exports = RegisterUserUseCase;
+module.exports = RegisterUserUseCase; 

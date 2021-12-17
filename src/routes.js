@@ -14,7 +14,7 @@ routes.use('/refresh-token', RefreshTokenController.refreshToken);
 routes.use('/forgot-password', ResetPasswordUserController.forgotPassword);
 routes.use('/reset-password', ResetPasswordUserController.resetPassword);
 routes.use(AthletesRouters);
-routes.use('/courses', CoursesRouters)
+routes.use(CoursesRouters)
 
 
 module.exports = routes;

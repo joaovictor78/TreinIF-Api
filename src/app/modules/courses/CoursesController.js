@@ -1,7 +1,12 @@
 const CoursesAdapter = require("./adapters/CoursesAdapter");
 class CoursesController{
-    getAllCourses(){
-
+    async getAllCourses(req, res){
+       try{ 
+           const courses = await CoursesAdapter.getAllCourses();
+           return res.send(courses);
+       }catch (e){
+           res.status(400).send({message: "Occorred one or more errors then get All Courses. Try Again!"})
+       }
     }
     async createCourse(req, res){
         try{

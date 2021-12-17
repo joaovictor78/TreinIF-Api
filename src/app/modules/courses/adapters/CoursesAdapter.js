@@ -1,7 +1,12 @@
 const { Courses } = require("../../../models");
 class CoursesAdapter{
     async getAllCourses(){
-        
+        try{
+            const courses =  await Courses.findAll({ raw: true, attributes: ["id", "name"], });
+            return courses;
+        }catch(e){
+            throw e;
+        }
     }
     async createCourse(courseName){
         try{

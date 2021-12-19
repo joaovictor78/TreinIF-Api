@@ -14,8 +14,6 @@ class UpdateTokenResetPassword {
                 newResetPasswordToken = await PasswordResetToken.create({ password_reset_token: refreshPasswordToken, user_id, expire_in: expiresIn });
             }
             return newResetPasswordToken;
-
-
         } catch (e) {
             console.log(e);
             throw "Error generating code to reset password";

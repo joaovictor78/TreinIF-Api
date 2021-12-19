@@ -1,6 +1,5 @@
 const teamCodeAdapter = require("../adapters/TeamCodeAdapter");
 const teamAdapter = require("../adapters/TeamAdapter");
-const req = require("express/lib/request");
 class CreateTeamUseCase {
     async createTeam(teamData) {
         try {

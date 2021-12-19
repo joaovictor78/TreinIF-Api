@@ -14,14 +14,22 @@ module.exports = {
         type: Sequelize.STRING
       },
       team_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
            model: 'teams',
            key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false
       }
 
     });

@@ -1,6 +1,7 @@
 const route = require("express").Router();
-const CoursesController = require("../app/modules/teams/TeamsController");
+const TeamsController = require("../app/modules/teams/TeamsController");
 
-route.post("/team", CoursesController.createTeam);
+route.post("/teams/generate-code", TeamsController.generateTeamCode);
+route.post("/teams", TeamsController.createTeam);
 
 module.exports = route;

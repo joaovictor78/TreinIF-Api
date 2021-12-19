@@ -1,7 +1,6 @@
 const { PasswordResetToken } = require("../../../../models");
 class UpdateTokenResetPassword {
     async updateOrCreateTokenResetPassword(user_id, refreshPasswordToken, expiresIn) {
-        console.log("foi pa ca");
         console.log(refreshPasswordToken)
         console.log(user_id);
         try {

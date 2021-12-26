@@ -11,7 +11,7 @@ class ManageWorkoutsByTeamController{
     }
     async getAllWorkoutsByTeam(){
         try{
-            const {id: trainer_id} = req.userId;
+          //  const team_id = 
             const {size, workouts} = await teamWorkoutsAdapter.getAllTeamWorkouts(trainer_id);
             return res.status(200).send({size, workouts});
         }catch(error){

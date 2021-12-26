@@ -27,12 +27,12 @@ class TeamWorkoutsAdapter {
             throw error;
         }
     }
-    async getAllTeamWorkouts(trainer_id) {
+    async getAllTeamWorkouts(team_id) {
         try {
             console.log(trainer_id)
             const { count: size, rows: workouts } = await TeamWorkouts.findAndCountAll({
                 where: {
-                    trainer_id,
+                    team_id,
                     athlete_id: null
                 }
             });

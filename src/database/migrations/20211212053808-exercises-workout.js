@@ -9,8 +9,18 @@ module.exports = {
         primaryKey: true, 
         autoIncrement: true
       },
-      workout_id: {
-        allowNull: false,
+      team_workout_id: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'workouts',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      individual_workout_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'workouts',

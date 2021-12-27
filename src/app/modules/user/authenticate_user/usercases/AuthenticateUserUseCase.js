@@ -13,7 +13,7 @@ class AuthenticateUserUseCase{
             if(!await bcrypt.compare(user_credentials.password, user.password_hash)){
                 throw { message: "Email or password invalid" };
             }
-            const acess_token = GenerateTokenProvider.execute(user.id);
+            const acess_token = GenerateTokenProvider.execute(user.id, user.role_id);
             const refresh_token = await GenerateRefreshTokenProvider.execute(user.id);
             delete user.password_hash;
             return {user, token: {acess_token, refresh_token}};

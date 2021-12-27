@@ -20,7 +20,7 @@ module.exports = {
         onDelete: 'CASCADE'
      },
      
-     user_id:{
+     athlete_id: {
       allowNull: false,
       type: Sequelize.INTEGER,
       references: {

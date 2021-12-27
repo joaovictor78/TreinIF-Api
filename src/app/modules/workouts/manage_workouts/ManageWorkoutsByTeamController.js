@@ -9,12 +9,13 @@ class ManageWorkoutsByTeamController{
             return res.status(400).send({error});
         }
     }
-    async getAllWorkoutsByTeam(){
+    async getAllWorkoutsByTeam(req, res){
         try{
-          //  const team_id = 
-            const {size, workouts} = await teamWorkoutsAdapter.getAllTeamWorkouts(trainer_id);
+            const team_id = req.params.id;
+            const {size, workouts} = await teamWorkoutsAdapter.getAllTeamWorkouts(team_id);
             return res.status(200).send({size, workouts});
         }catch(error){
+            console.log(error);
             return res.status(400).send({error});
         }
     }

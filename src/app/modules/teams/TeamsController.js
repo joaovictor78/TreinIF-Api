@@ -5,8 +5,8 @@ const getTeamsUseCase = require("./usecases/GetTeamsUseCase");
 class TeamsController {
     async generateTeamCode(req, res) {
         try {
-            const { code } = await createTeamCodeUseCase.generateCode();
-            res.send({ code });
+            const { code_id,  team_code:code, } = await createTeamCodeUseCase.generateCode();
+            res.send({ code_id, code });
         } catch (error) {
             res.status(400).send(error);
         }

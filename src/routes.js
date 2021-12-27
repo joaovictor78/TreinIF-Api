@@ -4,9 +4,12 @@ const AuthenticateUserController = require("../src/app/modules/user/authenticate
 const RefreshTokenController = require("../src/app/modules/user/refresh_token_user/RefreshTokenUserController");
 const ResetPasswordUserController = require("../src/app/modules/user/reset_password_user/ResetPassowordUserController");
 const IndivualWorkoutsRoutes = require("./routes/manage_individual_workouts");
+const TeamWorkoutsRoutes = require("./routes/manage_workouts_by_teams");
 const CoursesRouters = require("./routes/courses");
 const AthletesRouters = require("./routes/athletes");
+const ModalitiesRouters = require("./routes/modalities");
 const TeamsRoutes = require("./routes/teams");
+const ExercisesTypesRoutes = require("./routes/exercises_types");
 const permissions = require("../src/app/services/auth_service"); 
 const authMiddleware = require("../src/app/middlewares/auth_middleware");
 routes.use('/login', AuthenticateUserController.login);
@@ -18,7 +21,8 @@ routes.use('/reset-password', ResetPasswordUserController.resetPassword);
 routes.use(AthletesRouters);
 routes.use(CoursesRouters);
 routes.use(TeamsRoutes);
+routes.use(ModalitiesRouters);
 routes.use("/workouts", IndivualWorkoutsRoutes);
-
-
+routes.use(TeamWorkoutsRoutes);
+routes.use("/trainer", ExercisesTypesRoutes);
 module.exports = routes;

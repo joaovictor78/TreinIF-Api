@@ -15,25 +15,27 @@ class TeamWorkoutsAdapter {
             console.log(trainer_id)
             const { count: size, rows: workouts } = await TeamWorkouts.findAndCountAll({
                 where: {
-                    trainer_id,
                     [Op.not]: [
                         { athlete_id: null }
                     ]
-                }
+                },
+                include: [
+                    { association: 'team', where: { trainer_id } }
+                ]
             });
             return { size, workouts };
         } catch (error) {
-            console.log(error);
+            console.log("Erro aqui", error);
             throw error;
         }
     }
     async getAllTeamWorkouts(team_id) {
         try {
-            console.log(trainer_id)
+            console.log(team_id)
             const { count: size, rows: workouts } = await TeamWorkouts.findAndCountAll({
                 where: {
-                    team_id,
-                    athlete_id: null
+                    athlete_id: null,
+                    team_id
                 }
             });
             return { size, workouts };

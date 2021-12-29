@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     const ExercisesWorkout = sequelize.define('ExercisesWorkout', {
-        day_of_week: DataTypes.DATE,
         series_number: DataTypes.INTEGER,
         repeat_time_in_seconds: DataTypes.INTEGER,
         exercise_variation: DataTypes.STRING

@@ -13,6 +13,14 @@ module.exports = {
         allowNull: false,
         unique: true,
         type: Sequelize.ENUM("Sunday", "Monday", "Tuesday", "Wednersday", "Thursday", "Friday", "Saturday")
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
   },

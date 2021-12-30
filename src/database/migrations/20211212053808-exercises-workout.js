@@ -13,7 +13,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER,
         references: {
-          model: 'workouts',
+          model: 'team_workouts',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -23,7 +23,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER,
         references: {
-          model: 'workouts',
+          model: 'individual_workouts',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -38,10 +38,6 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
-      },
-      day_of_week:{
-        type: Sequelize.DATE,
-        allowNull: false
       },
       series_number:{
         type: Sequelize.INTEGER,

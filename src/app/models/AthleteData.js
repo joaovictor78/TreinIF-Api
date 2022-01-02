@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'RG'}
     });
     AthleteData.associate = function (models) {
-        AthleteData.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+        AthleteData.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
         AthleteData.belongsTo(models.Courses, { foreignKey: 'course_id', as: 'course' })
     };
     return AthleteData;

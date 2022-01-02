@@ -1,4 +1,3 @@
-const res = require("express/lib/response");
 const RegisterAthleteSupplementaryDataAdapter = require("../adapters/AthleteDataAdapter")
 class AthletesUseCase {
     async registerAthleteSupplementaryData(data) {

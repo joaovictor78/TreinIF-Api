@@ -11,7 +11,7 @@ const ModalitiesRouters = require("./routes/modalities");
 const TeamsRoutes = require("./routes/teams");
 const ExercisesTypesRoutes = require("./routes/exercises_types");
 const WorkoutExercisesRoutes = require("./routes/manage_exercises");
-const permissions = require("../src/app/services/auth_service"); 
+const permissions = require("../src/app/middlewares/auth_service"); 
 const authMiddleware = require("../src/app/middlewares/auth_middleware");
 const route = require("./routes/manage_workouts_by_teams");
 routes.use('/login', AuthenticateUserController.login);

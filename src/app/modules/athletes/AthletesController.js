@@ -16,11 +16,10 @@ class AthletesController{
     }
     async getAllAthletesWithFilter(req, res){
         try{
-            let { limit = 10, page = 1 } = req.query;
+            let { limit = 10, page = 1, search_term } = req.query;
             limit = parseInt(limit);
             page = (parseInt(page) - 1);
-            const { full_name, email } = req.body;
-            const { size, athletes } = await searchAthletesWithFilterUseCase.searchAthletesWithFilter(limit, page, full_name, email);
+            const { size, athletes } = await searchAthletesWithFilterUseCase.searchAthletesWithFilter(limit, page, search_term);
             return res.status(200).send({ size, athletes });
         }catch(e){
             console.log(e);

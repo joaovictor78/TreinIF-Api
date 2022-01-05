@@ -14,14 +14,24 @@ class RegisterAthleteSupplementaryDataAdapter {
     async getAllAthletesByIndividualWorkouts(trainer_id, listTeamsID = []) {
         try {
             const athletesByIndividualWorkouts = await IndividualWorkouts.findAll({
-                logging: console.log,
                 where: { trainer_id },
                 include: [
-                    { required: true, association: 'athlete' },
+                    { required: true, association: 'athlete',
+                    attributes: [ "id", "birth_date", "blood_type", "CPF", "RG" ],
+                    include: [
+                        {required: true, association: 'users',   attributes: [ "full_name", "email", "avatar_url" ], }
+                    ],
+                 },
                 ]
             });
             console.log(athletesByIndividualWorkouts);
-            return athletesByIndividualWorkouts;
+            
+           const convertData =  athletesByIndividualWorkouts.map((element) => {
+                const { id:athlete_id, birth_date, blood_type, CPF, RG } = element.athlete;
+                const { full_name, email, avatar_url } = element.athlete.users;
+                return { athlete_id, full_name, email, avatar_url, birth_date, blood_type, CPF, RG }
+            });
+            return convertData;
         } catch (error) {
             console.log(error);
             throw error;

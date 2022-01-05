@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
         is_active: DataTypes.BOOLEAN
     });
     IndividualWorkouts.associate = function (models) {
-        IndividualWorkouts.belongsTo(models.User, { foreignKey: 'athlete_id', as: 'athletes' });
-        IndividualWorkouts.belongsTo(models.Teams, { foreignKey: 'trainer_id', as: 'trainer' });
+        IndividualWorkouts.belongsTo(models.AthleteData, { foreignKey: 'athlete_id', as: 'athlete' });
+        IndividualWorkouts.belongsTo(models.User, { foreignKey: 'trainer_id', as: 'trainer' });
     };
     return IndividualWorkouts;
 }

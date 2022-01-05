@@ -23,6 +23,7 @@ class TeamWorkoutsAdapter {
                     { association: 'team', where: { trainer_id } }
                 ]
             });
+            console.log("DEU TUDO CERTO");
             return { size, workouts };
         } catch (error) {
             console.log("Erro aqui", error);

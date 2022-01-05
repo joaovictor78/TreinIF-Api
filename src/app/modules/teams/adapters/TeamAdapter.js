@@ -8,12 +8,13 @@ class TeamAdapter {
         }
 
     }
-    async getTeams(limit, page){
-        try{
-            let {count:size, rows:teams} = await Teams.findAndCountAll({offset: page * limit, limit});
-            console.log(teams);
-            return {size, teams};
-        } catch(error){
+    async getTeams(limit, page, trainer_id) {
+        try {
+            let { count: size, rows: teams } = await Teams.findAndCountAll({
+                where: { trainer_id }, offset: page * limit, limit,
+            });
+            return { size, teams };
+        } catch (error) {
             throw error;
         }
     }

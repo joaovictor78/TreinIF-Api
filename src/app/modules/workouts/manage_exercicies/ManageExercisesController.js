@@ -7,7 +7,7 @@ class ManageExercisesController {
             let team_workout_id;
             let individual_workout_id;
             if (req.query.type == WorkoutsTypesEnum.Individual) {
-                team_workout_id = null;
+                team_workout_id = null; 
                 individual_workout_id = req.params.id;
             } else if (req.query.type == WorkoutsTypesEnum.Team) {
                 team_workout_id = req.params.id;
@@ -19,6 +19,9 @@ class ManageExercisesController {
             console.log(error);
             return res.status(400).send({ error: "There was an error creating the exercise" });
         }
+    }
+    async getExercises(req, res){ 
+
     }
 }
 

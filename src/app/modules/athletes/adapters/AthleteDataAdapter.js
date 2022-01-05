@@ -1,4 +1,5 @@
 const { AthleteData } = require("../../../models");
+const { IndividualWorkouts } = require("../../../models");
 const { Op } = require("sequelize");
 class RegisterAthleteSupplementaryDataAdapter {
     async registerAthleteData(data) {
@@ -7,12 +8,28 @@ class RegisterAthleteSupplementaryDataAdapter {
             const { birth_date, blood_type, CPF, RG, course_id } = result;
             return { birth_date, blood_type, CPF, RG, course_id };
         } catch (error) {
+            throw error;
+        }
+    }
+    async getAllAthletesByIndividualWorkouts(trainer_id, listTeamsID = []) {
+        try {
+            const athletesByIndividualWorkouts = await IndividualWorkouts.findAll({
+                logging: console.log,
+                where: { trainer_id },
+                include: [
+                    { required: true, association: 'athlete' },
+                ]
+            });
+            console.log(athletesByIndividualWorkouts);
+            return athletesByIndividualWorkouts;
+        } catch (error) {
             console.log(error);
+            throw error;
         }
     }
     async searchWithFilter(limit, page, search_term) {
         try {
-            const  {count:size, rows:athletes}  = await AthleteData.findAndCountAll({
+            const { count: size, rows: athletes } = await AthleteData.findAndCountAll({
                 include: [
                     {
                         association: 'users',
@@ -26,7 +43,7 @@ class RegisterAthleteSupplementaryDataAdapter {
                                 },
                                 {
                                     email: {
-                                        [Op.iLike]:  '%' + search_term + '%'
+                                        [Op.iLike]: '%' + search_term + '%'
                                     }
                                 }
                             ],
@@ -40,8 +57,8 @@ class RegisterAthleteSupplementaryDataAdapter {
             });
             const convertData = athletes.map(obj => {
                 const { id, birth_date, blood_type, CPF, RG, user_id } = obj;
-                const { full_name, email, avatar_url, role_id} = obj.users
-                return { id, full_name, email, avatar_url, role_id,  birth_date, blood_type, CPF, RG, user_id }
+                const { full_name, email, avatar_url, role_id } = obj.users
+                return { id, full_name, email, avatar_url, role_id, birth_date, blood_type, CPF, RG, user_id }
             })
             return { size, athletes: convertData };
         } catch (error) {

@@ -1,5 +1,6 @@
 const  registerUserCase  = require("./usecases/register_athletes_usecase");
 const searchAthletesWithFilterUseCase = require("./usecases/search_athletes_whith_filter_usecase");
+const getAllAthletesByIndividualWorkoutsUseCase = require("./usecases/get_all_athletes_by_individual_workouts_usecase");
 class AthletesController{
     async registerSupplementaryData(req, res){
         try{
@@ -24,6 +25,17 @@ class AthletesController{
         }catch(e){
             console.log(e);
             return res.status(400).send({message: "An error occurred while making the query."});
+        }
+    }
+    async getAllAthletesByIndividualWorkouts(req, res){
+        try{
+            const trainer_id = req.userId;
+            console.log("USER ID", trainer_id);
+            const athletes = await getAllAthletesByIndividualWorkoutsUseCase.getAllAthletesByIndividualWorkouts(trainer_id); 
+            return res.status(200).send({athletes});
+        }catch(error){
+            console.log(error);
+            return res.status(400).send({error});
         }
     }
 }

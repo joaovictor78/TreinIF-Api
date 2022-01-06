@@ -1,6 +1,6 @@
 const { Teams } = require("../../../models");
 class TeamAdapter {
-    async getTeams(trainer_id) {
+    async getTeamsID(trainer_id) {
         try {
             const teams = await Teams.findAll({
                 where: { trainer_id },

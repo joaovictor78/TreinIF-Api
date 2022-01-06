@@ -1,4 +1,5 @@
 const { getTeams } = require("./adapters/TeamAdapter");
+const  getTeamsByWorkouts  = require("./adapters/TeamWorkoutsAdapter");
 const createTeamCodeUseCase = require("./usecases/CreateTeamCodeUseCase");
 const createTeamUseCase = require("./usecases/CreateTeamUseCase");
 const getTeamsUseCase = require("./usecases/GetTeamsUseCase");
@@ -20,6 +21,15 @@ class TeamsController {
             res.status(200).send({ message: "team created with sucess" });
         } catch (error) {
             return res.status(400).send({ error });
+        }
+    }
+    async getTeamsByWorkouts(req, res){
+        try{
+            const trainer_id = req.userId;
+            const teams = await getTeamsByWorkouts.getTeamsByWorkouts(trainer_id);
+            return res.status(200).send({teams});
+        }catch(error){
+            return res.status(400).send({error});
         }
     }
     async getTeams(req, res) {

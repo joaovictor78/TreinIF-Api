@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         is_active: DataTypes.BOOLEAN
     });
     TeamWorkouts.associate = function (models) {
-        TeamWorkouts.belongsTo(models.User, { foreignKey: 'athlete_id', as: 'athletes' });
+        TeamWorkouts.belongsTo(models.AthleteData, { foreignKey: 'athlete_id', as: 'athlete' });
         TeamWorkouts.belongsTo(models.Teams, { foreignKey: 'team_id', as: 'team' });
     };
     return TeamWorkouts;

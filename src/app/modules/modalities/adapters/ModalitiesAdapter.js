@@ -12,7 +12,7 @@ class ModalitiesAdapter{
       }  
       async getAllModalities(){
           try{
-              const modalities = await Modalities.findAll({raw: true});
+              const modalities = await Modalities.findAll({raw: true, attributes: ["id", "name"]});
               return modalities;
           }catch(error){
               throw error;

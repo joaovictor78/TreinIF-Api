@@ -15,8 +15,8 @@ class TeamsController {
     async createTeam(req, res) {
         try {
             const userId = req.userId;
-            const teamData = { ...req.body, userId };
-
+            const { name, description, modality_id, code_id } = req.body;
+            const teamData = { name, description, modality_id, code_id, userId };
             await createTeamUseCase.createTeam(teamData);
             res.status(200).send({ message: "team created with sucess" });
         } catch (error) {
@@ -34,11 +34,9 @@ class TeamsController {
     }
     async getTeams(req, res) {
         try {
-            let { limit = 10, page = 1 } = req.query;
-            limit = parseInt(limit);
-            page = (parseInt(page) - 1);
-            const {size, teams} = await getTeamsUseCase.getTeams(limit, page);
-            res.status(200).send({size, teams});
+            const trainer_id = req.userId;
+            const teams = await getTeamsUseCase.getTeams(trainer_id);
+            res.status(200).send(teams);
         } catch (error) {
             return res.status(400).send({ error });
         }

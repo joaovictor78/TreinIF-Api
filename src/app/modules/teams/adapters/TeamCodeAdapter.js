@@ -24,6 +24,7 @@ class TeamCodeAdapter {
 
     }
     async updateTeamCodeAdapter(code_id, team_id){
+        console.log("AQUIIII", code_id, team_id)
         try{
             await TeamCode.update({ team_id }, {
                 where: {
@@ -32,6 +33,7 @@ class TeamCodeAdapter {
               });
               
         }catch(error){
+            console.log("deu merda aqui");
             throw error;
         }
     }

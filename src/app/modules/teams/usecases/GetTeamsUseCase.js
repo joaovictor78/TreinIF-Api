@@ -1,10 +1,10 @@
 const teamAdapter = require("../adapters/TeamAdapter");
 class GetTeamsUseCase{
-  async getTeams(limit, page){
+  async getTeams(trainer_id){
         try{
-            const {size, teams} = await teamAdapter.getTeams(limit, page);
+            const teams = await teamAdapter.getTeams(trainer_id);
             console.log(teams);
-            return {size, teams};
+            return teams;
         }catch(error){
             throw error;
         }

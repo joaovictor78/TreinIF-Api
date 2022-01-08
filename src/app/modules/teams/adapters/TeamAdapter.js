@@ -2,6 +2,7 @@ const { Teams } = require("../../../models");
 class TeamAdapter {
     async createTeam(team) {
         try {
+            console.log("FOI PRA CA", team);
             return await Teams.create(team);
         } catch (error) {
             throw error;
@@ -22,12 +23,17 @@ class TeamAdapter {
             throw error;
         }
     }
-    async getTeams(limit, page, trainer_id) {
+    async getTeams(trainer_id) {
         try {
-            let { count: size, rows: teams } = await Teams.findAndCountAll({
-                where: { trainer_id }, offset: page * limit, limit,
+            const teams = await Teams.findAll({
+                where: { trainer_id },
+                attributes: ["id", "name", "description", "trainer_id"],
+                include: [
+                    { association: "code", attributes: ["id", "code"] },
+                    { association: "modality", attributes: ["id", "name"] }
+                ]
             });
-            return { size, teams };
+            return teams;
         } catch (error) {
             throw error;
         }

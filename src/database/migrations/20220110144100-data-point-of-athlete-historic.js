@@ -2,32 +2,25 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
-    await queryInterface.createTable('athlete_history', {
+    await queryInterface.createTable('data_point_of_athlete_historic', {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true
       },
-      measurement_date: {
-        allowNull: false,
-        type: Sequelize.DATE
+      athlete_id: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'athlete_data',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      pressure: {
-        allowNull: false,
-        type: Sequelize.FLOAT
-      },
-      weight: {
-        allowNull: false,
-        type: Sequelize.FLOAT
-      },
-      heigth: {
-        allowNull: false,
-        type: Sequelize.FLOAT
-      },
-      user_id: {
-        allowNull: false,
+      trainer_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
@@ -44,11 +37,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false
       }
-    });
 
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('athlete_history');
+    await queryInterface.dropTable('data_point_of_athlete_historic');
   }
 };

@@ -10,38 +10,25 @@ class TeamWorkoutsAdapter {
             throw error;
         }
     }
-    async getAllIndividualWorkouts(trainer_id) {
-        try {
-            console.log(trainer_id)
-            const { count: size, rows: workouts } = await TeamWorkouts.findAndCountAll({
-                where: {
-                    [Op.not]: [
-                        { athlete_id: null }
-                    ]
-                },
-                include: [
-                    { association: 'team', where: { trainer_id } }
-                ]
-            });
-            console.log("DEU TUDO CERTO");
-            return { size, workouts };
-        } catch (error) {
-            console.log("Erro aqui", error);
-            throw error;
-        }
-    }
     async getAllTeamWorkouts(team_id) {
         try {
             console.log(team_id)
             const { count: size, rows: workouts } = await TeamWorkouts.findAndCountAll({
                 where: {
-                    athlete_id: null,
                     team_id
                 }
             });
             return { size, workouts };
         } catch (error) {
             console.log(error);
+            throw error;
+        }
+    }
+    async updateTrainingStatus(workout_id, team_id){
+        try{
+            await TeamWorkouts.update({is_active:true},  { where: { team_id, workout_id } } );
+            await TeamWorkouts.update({is_active:false},  { where: { team_id, [Op.not]: workout_id } } );
+        } catch(error){
             throw error;
         }
     }

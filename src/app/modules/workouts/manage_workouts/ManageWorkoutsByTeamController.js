@@ -19,6 +19,15 @@ class ManageWorkoutsByTeamController {
             return res.status(400).send({ error });
         }
     }
+    async updateTrainingStatus(req, res){
+        try{
+            const { team_id, workout_id } = req.params;
+            await teamWorkoutsAdapter.updateTrainingStatus(workout_id, team_id);
+            return res.status(200).send({message: "Training status updated successfully"});
+        }catch (error) {
+            return res.status(400).send({error: "There was an error updating the training status"})
+        }
+    }
 }
 
 module.exports = new ManageWorkoutsByTeamController();

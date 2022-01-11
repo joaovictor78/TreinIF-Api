@@ -30,7 +30,6 @@ class AthletesController{
     async getAllAthletesByIndividualWorkouts(req, res){
         try{
             const trainer_id = req.userId;
-            console.log("USER ID", trainer_id);
             const athletes = await getAllAthletesByIndividualWorkoutsUseCase.getAllAthletesByIndividualWorkouts(trainer_id); 
             return res.status(200).send({athletes});
         }catch(error){

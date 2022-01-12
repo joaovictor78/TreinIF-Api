@@ -1,7 +1,5 @@
 const { AthleteData } = require("../../../models");
-const TeamsAdapter = require("../adapters/TeamsAdapter");
 const { IndividualWorkouts } = require("../../../models");
-const { TeamWorkouts } = require("../../../models");
 const { Op } = require("sequelize");
 class RegisterAthleteSupplementaryDataAdapter {
     async registerAthleteData(data) {
@@ -15,12 +13,13 @@ class RegisterAthleteSupplementaryDataAdapter {
     }
     async getAllAthletesByIndividualWorkouts(trainer_id) {
         try {
-            const listTeamsIdOfTrainer = await TeamsAdapter.getTeamsID(trainer_id);
+            console.log(trainer_id);
             const athletesByIndividualWorkouts = await IndividualWorkouts.findAll({
                 where: { trainer_id },
                 include: [
                     {
-                        required: true, association: 'athlete',
+                        required: true,
+                        association: 'athlete',
                         attributes: ["id", "birth_date", "blood_type", "CPF", "RG"],
                         include: [
                             { required: true, association: 'users', attributes: ["full_name", "email", "avatar_url"] }
@@ -28,36 +27,15 @@ class RegisterAthleteSupplementaryDataAdapter {
                     },
                 ]
             });
-            const ahtletesByIndividualWorkoutsGroupByTeam = await TeamWorkouts.findAll({
-                where: {
-                    team_id: listTeamsIdOfTrainer,
-                    [Op.not]: [
-                        { athlete_id: null }
-                    ]
-                },
-                include: [
-                    {
-                        required: true, association: 'athlete',
-                        attributes: ["id", "birth_date", "blood_type", "CPF", "RG"],
-                        include: [
-                            { required: true, association: 'users', attributes: ["full_name", "email", "avatar_url"] }
-                        ],
-                    },
-                ]
-
-            });
-            const convertAhtletesByIndividualWorkoutsGroupByTeam = ahtletesByIndividualWorkoutsGroupByTeam.map((element) => {
-                const { id: athlete_id, birth_date, blood_type, CPF, RG } = element.athlete;
-                const { full_name, email, avatar_url } = element.athlete.users;
-                return { athlete_id, full_name, email, avatar_url, birth_date, blood_type, CPF, RG }
-            });
+            console.log("caiuu aquii");
+            console.log(athletesByIndividualWorkouts)
+            
             const convertAthletesByIndividualWorkoutsData = athletesByIndividualWorkouts.map((element) => {
                 const { id: athlete_id, birth_date, blood_type, CPF, RG } = element.athlete;
                 const { full_name, email, avatar_url } = element.athlete.users;
                 return { athlete_id, full_name, email, avatar_url, birth_date, blood_type, CPF, RG }
             });
-            const join = [...convertAthletesByIndividualWorkoutsData, ...convertAhtletesByIndividualWorkoutsGroupByTeam];
-            return join;
+            return convertAthletesByIndividualWorkoutsData;
         } catch (error) {
             console.log(error);
             throw error;

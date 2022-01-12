@@ -24,11 +24,12 @@ class TeamWorkoutsAdapter {
             throw error;
         }
     }
-    async updateTrainingStatus(workout_id, team_id){
-        try{
-            await TeamWorkouts.update({is_active:true},  { where: { team_id, workout_id } } );
-            await TeamWorkouts.update({is_active:false},  { where: { team_id, [Op.not]: workout_id } } );
-        } catch(error){
+    async updateTrainingStatus(workout_id, team_id) {
+        try {
+            await TeamWorkouts.update({ is_active: true }, { where: { team_id, id: workout_id } });
+            await TeamWorkouts.update({ is_active: false }, { where: { team_id, [Op.not]: { id: workout_id } } });
+        } catch (error) {
+            console.log(error);
             throw error;
         }
     }

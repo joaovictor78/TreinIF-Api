@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'value_data_point_of_athlete_historic'
         });
     ValueDataPointOfAthleteHistoric.associate = function (models) {
-    ValueDataPointOfAthleteHistoric.belongsToMany(models.DataPointOfAthleteHistoric, { foreignKey: 'data_point_id', as: 'data_point', });
+    ValueDataPointOfAthleteHistoric.belongsTo(models.DataPointOfAthleteHistoric, { foreignKey: 'data_point_id', as: 'data_point', });
     }
     return ValueDataPointOfAthleteHistoric;
 }

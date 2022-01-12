@@ -3,10 +3,9 @@ class ManageIndividualWorkoutsController {
     async getAllWorkouts(req, res) {
         try {
             const trainer_id = req.userId;
-            const { size: sizeIndividualWorkoutsWithoutTeam, workouts: individualWorkoutsWithoutTeam } = await individualWorkoutsAdapter.getAllIndividualWorkouts(trainer_id);
-            const total = sizeIndividualWorkoutsWithoutTeam + sizeIndividualWorkoutsByTeam;
-            const allIndividualWorkouts = [...individualWorkoutsWithoutTeam, ...individualWorkoutsWithTeam];
-            return res.status(200).send({ total, workouts: allIndividualWorkouts });
+            const { athlete_id }  = req.body;
+            const { size, workouts } = await individualWorkoutsAdapter.getAllIndividualWorkouts(trainer_id, athlete_id);
+            return res.status(200).send({ size, workouts });
         } catch (error) {
             console.log(error);
             return res.status(400).send({ error });

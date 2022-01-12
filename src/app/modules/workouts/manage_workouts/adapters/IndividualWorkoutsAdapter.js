@@ -1,4 +1,5 @@
 const { IndividualWorkouts } = require("../../../../models");
+const { Op } = require("sequelize");
 class IndividualWorkoutsAdapter {
     async createWorkout(workout) {
         try {
@@ -11,9 +12,8 @@ class IndividualWorkoutsAdapter {
     }
     async getAllIndividualWorkouts(trainer_id, athlete_id) {
         try {
-            console.log("Trainer id", trainer_id)
+            console.log(athlete_id)
             const {count:size, rows:workouts} = await IndividualWorkouts.findAndCountAll({where: {trainer_id, athlete_id}});
-            console.log("Aquiiii");
             console.log({size, workouts})
             return {size, workouts};
         } catch (error) {
@@ -23,9 +23,10 @@ class IndividualWorkoutsAdapter {
     }
     async updateTrainingStatus(workout_id, athlete_id, trainer_id){
         try{
-            await TeamWorkouts.update({is_active:true},  { where: { athlete_id, trainer_id, workout_id } } );
-            await TeamWorkouts.update({is_active:false},  { where: { team_id, trainer_id, [Op.not]: workout_id } } );
+            await IndividualWorkouts.update({is_active:true},  { where: { athlete_id, trainer_id, id: workout_id } } );
+            await IndividualWorkouts.update({is_active:false},  { where: { athlete_id, trainer_id, [Op.not]: { id:workout_id } } } );
         } catch(error){
+            console.log(error)
             throw error;
         }
     }

@@ -7,7 +7,7 @@ class ManageExercisesController {
             let team_workout_id;
             let individual_workout_id;
             if (req.query.type == WorkoutsTypesEnum.Individual) {
-                team_workout_id = null; 
+                team_workout_id = null;
                 individual_workout_id = req.params.id;
             } else if (req.query.type == WorkoutsTypesEnum.Team) {
                 team_workout_id = req.params.id;
@@ -20,8 +20,15 @@ class ManageExercisesController {
             return res.status(400).send({ error: "There was an error creating the exercise" });
         }
     }
-    async getExercises(req, res){ 
-
+    async getExercisesByDayOfWeek(req, res) {
+        try {
+            const workout_id = req.params.id;
+            const day_of_week = req.query.day_of_week;
+            ExercisesWorkoutAdapter.getAllExercisesByDayOfWeek(day_of_week, workout_id, req.query.type);
+            return res.status(200).send();
+        } catch (error) {
+            return res.status(400).send({error})
+        }
     }
 }
 

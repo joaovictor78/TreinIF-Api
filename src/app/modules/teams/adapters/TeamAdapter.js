@@ -1,13 +1,12 @@
 const { Teams } = require("../../../models");
+const { AthleteData } = require("../../../models");
 class TeamAdapter {
     async createTeam(team) {
         try {
-            console.log("FOI PRA CA", team);
             return await Teams.create(team);
         } catch (error) {
             throw error;
         }
-
     }
     async getTeamsID(trainer_id) {
         try {
@@ -35,6 +34,28 @@ class TeamAdapter {
             });
             return teams;
         } catch (error) {
+            throw error;
+        }
+    }
+    async getAllAthletesOfTeam(team_id){
+        try {
+            const athletes = await Teams.getAthletes({
+                where: {
+                    team_id
+                }
+            });
+            return athletes;
+        } catch(error){
+            throw error;
+        }
+    }
+    async addAthleteToTeam(team_id, athlete_id){
+        try {
+            const athlete = await AthleteData.findByPk(athlete_id);
+            const team = Teams.findByPk(team_id);
+            await team.addAthlete(athlete);
+            return;
+        } catch(error){
             throw error;
         }
     }

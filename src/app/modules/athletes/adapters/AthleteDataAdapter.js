@@ -11,6 +11,15 @@ class RegisterAthleteSupplementaryDataAdapter {
             throw error;
         }
     }
+
+    async updateAthleteData(data, athlete_id){
+        try {
+            await AthleteData.update({ data }, { where: { athlete_id }});
+            return;
+        } catch(error){
+            throw error;
+        }
+    }
     async getAllAthletesByIndividualWorkouts(trainer_id) {
         try {
             console.log(trainer_id);

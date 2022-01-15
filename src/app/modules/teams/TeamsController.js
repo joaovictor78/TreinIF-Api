@@ -1,12 +1,11 @@
-const { getTeams } = require("./adapters/TeamAdapter");
-const  getTeamsByWorkouts  = require("./adapters/TeamWorkoutsAdapter");
 const createTeamCodeUseCase = require("./usecases/CreateTeamCodeUseCase");
 const createTeamUseCase = require("./usecases/CreateTeamUseCase");
 const getTeamsUseCase = require("./usecases/GetTeamsUseCase");
+const getAllAthletesOfTeam = require("./usecases/GetAllAthletesOfTeam")
 class TeamsController {
     async generateTeamCode(req, res) {
         try {
-            const { code_id,  team_code:code, } = await createTeamCodeUseCase.generateCode();
+            const { code_id, team_code: code, } = await createTeamCodeUseCase.generateCode();
             res.send({ code_id, code });
         } catch (error) {
             res.status(400).send(error);
@@ -23,15 +22,6 @@ class TeamsController {
             return res.status(400).send({ error });
         }
     }
-    async getTeamsByWorkouts(req, res){
-        try{
-            const trainer_id = req.userId;
-            const teams = await getTeamsByWorkouts.getTeamsByWorkouts(trainer_id);
-            return res.status(200).send({teams});
-        }catch(error){
-            return res.status(400).send({error});
-        }
-    }
     async getTeams(req, res) {
         try {
             const trainer_id = req.userId;
@@ -39,6 +29,15 @@ class TeamsController {
             res.status(200).send(teams);
         } catch (error) {
             return res.status(400).send({ error });
+        }
+    }
+    async getAllAthletesOfTeams(req, res) {
+        try { 
+            const team_id = req.params.id;
+            const athletes = await getAllAthletesOfTeam.getAll(team_id);
+            return athletes;
+        } catch (error) {
+            return res.status(400).send(error);
         }
     }
 }

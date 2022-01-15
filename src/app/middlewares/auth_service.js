@@ -16,7 +16,9 @@ function verifyToken(req, res, next){
     }
     return token;
 }
-
+exports.allUsers = async (req, res, next) => {
+    return next();
+}
 exports.isAdmin = async (req, res, next) => { 
     const token = verifyToken(req, res, next);
     jwt.verify(token, process.env.APP_SECRET, (err, decoded) => {

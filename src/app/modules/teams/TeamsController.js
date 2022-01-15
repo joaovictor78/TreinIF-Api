@@ -1,7 +1,7 @@
 const createTeamCodeUseCase = require("./usecases/CreateTeamCodeUseCase");
 const createTeamUseCase = require("./usecases/CreateTeamUseCase");
 const getTeamsUseCase = require("./usecases/GetTeamsUseCase");
-const getAllAthletesOfTeam = require("./usecases/GetAllAthletesOfTeam")
+const getAllAthletesOfTeam = require("./usecases/GetAllAthletesOfTeamUseCase")
 class TeamsController {
     async generateTeamCode(req, res) {
         try {

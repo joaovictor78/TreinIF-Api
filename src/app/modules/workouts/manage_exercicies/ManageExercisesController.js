@@ -13,7 +13,7 @@ class ManageExercisesController {
                 team_workout_id = req.params.id;
                 individual_workout_id = null;
             }
-            await ExercisesWorkoutAdapter.createWorkout({ series_number, repeat_time_in_seconds, exercise_variation, exercise_type_id, individual_workout_id, team_workout_id }, days_of_week);
+            await ExercisesWorkoutAdapter.createExercise({ series_number, repeat_time_in_seconds, exercise_variation, exercise_type_id, individual_workout_id, team_workout_id }, days_of_week);
             return res.status(200).send();
         } catch (error) {
             console.log(error);
@@ -28,6 +28,15 @@ class ManageExercisesController {
             return res.status(200).send();
         } catch (error) {
             return res.status(400).send({error})
+        }
+    }
+    async removeExercise(req, res){
+        try {
+            const exercise_id = req.params.id;
+            await ExercisesWorkoutAdapter.removeExercise(exercise_id);
+            return res.status(200).send();
+        } catch(error){
+            return res.status(400).send({error});
         }
     }
 }

@@ -21,12 +21,26 @@ class IndividualWorkoutsAdapter {
             throw error;
         }
     }
+    async updateWorkoutName(workout_name, workout_id){
+        try {
+            await IndividualWorkouts.update({ name: workout_name }, { where: { id: workout_id } });
+        } catch (error){
+            throw error;
+        }
+    }
     async updateTrainingStatus(workout_id, athlete_id, trainer_id){
         try{
             await IndividualWorkouts.update({is_active:true},  { where: { athlete_id, trainer_id, id: workout_id } } );
             await IndividualWorkouts.update({is_active:false},  { where: { athlete_id, trainer_id, [Op.not]: { id:workout_id } } } );
         } catch(error){
             console.log(error)
+            throw error;
+        }
+    }
+    async removeWorkout(workout_id){
+        try {
+            await IndividualWorkouts.destroy({where: { id:workout_id } });
+        } catch(error){
             throw error;
         }
     }

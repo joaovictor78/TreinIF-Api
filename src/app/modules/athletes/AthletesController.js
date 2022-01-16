@@ -4,6 +4,7 @@ const getAllAthletesByIndividualWorkoutsUseCase = require("./usecases/get_all_at
 const addHistoricOfAthleteUseCase = require("./usecases/add_historic_of_athlete_usecase");
 const addValueDataPointHistoricOfAthleteUseCase = require("./usecases/add_value_data_point_historic_of_athlete_usecase");
 const getHistoricOfAthleteUseCase = require("./usecases/get_historic_of_athlete_usecase");
+const deleteDataPointOfAthleteUseCase = require("./usecases/delete_data_point_historic_of_athlete_usecase");
 const deleteValueDataPointHistoricOfAthleteUseCase = require("./usecases/delete_value_data_point_historic_of_athlete_usecase");
 const updateValueDataPointHistoricOfAthleteUseCase = require("./usecases/update_value_data_point_historic_of_athlete_usecase");
 const AthleteDataAdapter = require("./adapters/AthleteDataAdapter");
@@ -74,7 +75,12 @@ class AthletesController{
         }
     }
     async removeDataPointOfAthlete(req, res){
-        
+        try{
+            const data_point_id = req.params.id;
+            await deleteDataPointOfAthleteUseCase.removeDataPoint(data_point_id);
+        } catch(error){
+            return res.status(400).send(error);
+        }
     }
     async addValueOfDataPointOfAthlete(req, res){
         try{

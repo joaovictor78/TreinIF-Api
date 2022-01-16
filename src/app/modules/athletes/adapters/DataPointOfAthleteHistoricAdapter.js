@@ -8,6 +8,14 @@ class DataPointOfAthleteHistoricAdapter {
             throw error;
         }
     }
+    async removeDataPointOfAthlete(data_point_id) {
+        try{
+            await DataPointOfAthleteHistoric.destroy({where: { id: data_point_id }});
+            return;
+        } catch(error){
+            throw error;
+        }
+    }
     async getAllDataPointOfAthlete(athlete_id, trainer_id) {
         try {
             const data_points = DataPointOfAthleteHistoric.findAll(

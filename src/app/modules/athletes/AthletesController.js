@@ -5,6 +5,7 @@ const addHistoricOfAthleteUseCase = require("./usecases/add_historic_of_athlete_
 const addValueDataPointHistoricOfAthleteUseCase = require("./usecases/add_value_data_point_historic_of_athlete_usecase");
 const getHistoricOfAthleteUseCase = require("./usecases/get_historic_of_athlete_usecase");
 const deleteValueDataPointHistoricOfAthleteUseCase = require("./usecases/delete_value_data_point_historic_of_athlete_usecase");
+const updateValueDataPointHistoricOfAthleteUseCase = require("./usecases/update_value_data_point_historic_of_athlete_usecase");
 const AthleteDataAdapter = require("./adapters/AthleteDataAdapter");
 class AthletesController{
     async registerSupplementaryData(req, res){
@@ -52,27 +53,51 @@ class AthletesController{
             return res.status(400).send({error});
         }
     }
-    
+    async getHistoricOfAthlete(req, res){
+        try{
+           const athlete_id = req.params.id;
+           const trainer_id = req.userId;
+           const data_points = await getHistoricOfAthleteUseCase.getHistoricOfAthlete(athlete_id, trainer_id);
+           return data_points;
+        } catch(error){
+            return res.status(400).send({error});
+        }
+    }
     async addDataPointOfAthlete(req, res){
         try{
-
+            const athlete_id = req.params.id;
+            const trainer_id = req.userId;
+            const data_points_values = req.body;
+            await addHistoricOfAthleteUseCase.addDataPoint(athlete_id, trainer_id, data_points_values);
         } catch(error){
             return res.status(400).send(error);
         }
     }
+    async removeDataPointOfAthlete(req, res){
+        
+    }
     async addValueOfDataPointOfAthlete(req, res){
         try{
-           const{ type, value } = req.body;
-         
+           const data_point_id = req.params.data_point_id;
+           const{ type, value } = req.body; 
+           await addValueDataPointHistoricOfAthleteUseCase.addValueDataPoint({ type, value }, data_point_id);
         }  catch(error){
             return res.status(400).send(error);
         }      
     }
     async updateValueOfDataPointOfAthlete(req, res){
-
+        try{
+            await updateValueDataPointHistoricOfAthleteUseCase.updateDataPointValue();
+        } catch(error){
+            return res.status(400).send(error);
+        }
     }
     async removeValueOfDataPointOfAthlete(req, res){
-
+        try {
+            await deleteValueDataPointHistoricOfAthleteUseCase.deleteDataPointValue();
+        } catch(error){
+            return res.status(400).send(error);
+        }
     }
 }
 

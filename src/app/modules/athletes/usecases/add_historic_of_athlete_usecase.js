@@ -1,10 +1,10 @@
 const DataPointOfAthleteHistoricAdapter = require("../adapters/DataPointOfAthleteHistoricAdapter");
 const ValueDataPointOfAthleteHistoricAdapter = require("../adapters/ValueDataPointOfAthleteHistoricAdapter");
 class AddHistoricOfAthleteUseCase {
-  async addDataPoint(athlete_id, trainer_id, data_point_values = []) {
+  async addDataPoint(athlete_id, trainer_id, data_point_values = [], date) {
     try {
       console.log("IDDDDSSS", athlete_id, trainer_id);
-      const { id } = await DataPointOfAthleteHistoricAdapter.createDataPoint(athlete_id, trainer_id);
+      const { id } = await DataPointOfAthleteHistoricAdapter.createDataPoint(athlete_id, trainer_id, date);
       data_point_values.map(async (value) => {
         await ValueDataPointOfAthleteHistoricAdapter.addDataPointValue(value, id);
       });

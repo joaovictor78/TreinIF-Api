@@ -1,9 +1,9 @@
 const { DataPointOfAthleteHistoric } = require("../../../models");
 class DataPointOfAthleteHistoricAdapter {
-    async createDataPoint(athlete_id, trainer_id) {
+    async createDataPoint(athlete_id, trainer_id, date) {
         try {
             console.log("UUUUUU", athlete_id, trainer_id);
-            const data_point = await DataPointOfAthleteHistoric.create({ athlete_id, trainer_id });
+            const data_point = await DataPointOfAthleteHistoric.create({ athlete_id, trainer_id, createdAt: date });
             return data_point;
         } catch (error) {
             console.log(error);
@@ -12,9 +12,19 @@ class DataPointOfAthleteHistoricAdapter {
     }
     async removeDataPointOfAthlete(data_point_id) {
         try{
+            console.log(data_point_id);
             await DataPointOfAthleteHistoric.destroy({where: { id: data_point_id }});
             return;
         } catch(error){
+            throw error;
+        }
+    }
+    async updateDateDataPointOfAthlete(date, data_point_id){
+        try{
+            await DataPointOfAthleteHistoric.update({createdAt:date}, {where: { id:data_point_id } });
+            return;
+        } catch(error){
+            console.log(error);
             throw error;
         }
     }

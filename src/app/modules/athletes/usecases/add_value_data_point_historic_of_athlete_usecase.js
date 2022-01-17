@@ -2,8 +2,8 @@ const ValueDataPointOfAthleteHistoricAdapter = require("../adapters/ValueDataPoi
 class AddValueDataPointHistoricOfAthleteUseCase{
    async addValueDataPoint(data, data_point_id){
        try{
-           await ValueDataPointOfAthleteHistoricAdapter.addDataPointValue(data, data_point_id);
-           return;
+           const valueDataPoint =  await ValueDataPointOfAthleteHistoricAdapter.addDataPointValue(data, data_point_id);
+           return valueDataPoint;
        } catch(error){
            throw error;
        }

@@ -6,6 +6,7 @@ class ValueDataPointOfAthleteHistoricAdapter{
            await ValueDataPointOfAthleteHistoric.create({ ...data, data_point_id });
            return;
        }catch(error){
+           console.log(error);
            throw error;
        }
    }

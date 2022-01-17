@@ -2,9 +2,11 @@ const { DataPointOfAthleteHistoric } = require("../../../models");
 class DataPointOfAthleteHistoricAdapter {
     async createDataPoint(athlete_id, trainer_id) {
         try {
+            console.log("UUUUUU", athlete_id, trainer_id);
             const data_point = await DataPointOfAthleteHistoric.create({ athlete_id, trainer_id });
             return data_point;
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }
@@ -18,21 +20,25 @@ class DataPointOfAthleteHistoricAdapter {
     }
     async getAllDataPointOfAthlete(athlete_id, trainer_id) {
         try {
-            const data_points = DataPointOfAthleteHistoric.findAll(
+            const data_points = await DataPointOfAthleteHistoric.findAll(
                 {
                     where: {
                         athlete_id,
                         trainer_id
                     },
+                    attributes: ["id", "createdAt"],
                     include: [
                         {
-                            association: "values_data_point"
+                            association: "values_data_point",
+                            attributes: ["id", "type", "value"]
+                           
                         }
                     ]
                 }
             );
             return data_points;
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }

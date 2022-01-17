@@ -5,6 +5,7 @@ class GetHistoricOfAthleteUseCase{
             const data_points = await DataPointOfAthleteHistoricAdapter.getAllDataPointOfAthlete(athlete_id, trainer_id);
             return data_points;
         } catch(error){
+            console.log(error);
             throw error;
         }
     }

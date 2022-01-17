@@ -59,7 +59,7 @@ class AthletesController{
            const athlete_id = req.params.id;
            const trainer_id = req.userId;
            const data_points = await getHistoricOfAthleteUseCase.getHistoricOfAthlete(athlete_id, trainer_id);
-           return data_points;
+           return  res.status(200).send({data_points});
         } catch(error){
             return res.status(400).send({error});
         }
@@ -70,6 +70,7 @@ class AthletesController{
             const trainer_id = req.userId;
             const data_points_values = req.body;
             await addHistoricOfAthleteUseCase.addDataPoint(athlete_id, trainer_id, data_points_values);
+            return res.status(200).send();
         } catch(error){
             return res.status(400).send(error);
         }

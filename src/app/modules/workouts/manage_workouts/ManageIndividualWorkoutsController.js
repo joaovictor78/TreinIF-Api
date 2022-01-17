@@ -46,7 +46,7 @@ class ManageIndividualWorkoutsController {
     }
     async removeWorkout(req, res) {
         try {
-            const { workout_id } = req.params;
+            const  workout_id  = req.params.id;
             await IndividualWorkoutsAdapter.removeWorkout(workout_id);
             return res.status(200).send({message: "Workout removed with success"})
         } catch(error) {

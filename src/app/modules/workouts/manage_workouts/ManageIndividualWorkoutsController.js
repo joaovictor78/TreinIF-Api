@@ -15,7 +15,8 @@ class ManageIndividualWorkoutsController {
     async createWorkout(req, res) {
         try {
             const trainer_id = req.userId;
-            const { name, is_active, athlete_id } = req.body;
+            const { name, athlete_id } = req.body;
+            const is_active = false;
             await individualWorkoutsAdapter.createWorkout({ name, is_active, athlete_id, trainer_id });
             return res.status(200).send();
         } catch (error) {
@@ -25,9 +26,9 @@ class ManageIndividualWorkoutsController {
     }
     async updateWorkoutName(req, res){
         try {
-          const workout_name = req.body;
+          const name = req.body;
           const workout_id = req.params.id;
-          await individualWorkoutsAdapter.updateWorkoutName(workout_name, workout_id);
+          await individualWorkoutsAdapter.updateWorkoutName(name, workout_id);
           return res.status(200).send();
         } catch(error){
             return res.status(400).send({ error });

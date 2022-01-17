@@ -10,22 +10,25 @@ class ExercisesWorkoutAdapter {
                 dayOfWeek.addExercise(exerciseDTO);
             });
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }
     async getAllExercisesByDayOfWeek(day_of_week, workout_id, type) {
-        const isIndividualWorkout = type === WorkoutsTypesEnum.Individual;
+        const isIndividualWorkout = type == WorkoutsTypesEnum.Individual;
         try {
-            const exercises = await DaysOfWeek.findAll({
+            const daysOfWeekWithExercises = await DaysOfWeek.findAll({
+                attributes:[],
                 include: [
-                    { association: 'exercises', where: { individual_workout_id: isIndividualWorkout ?  workout_id : null, team_workout_id: !isIndividualWorkout ? workout_id : null } }
+                    { association: 'exercises',
+                    include: [ {association: 'exercise', attributes: ["id", "name"]} ],
+                     attributes: ["id", "series_number", "repeat_time_in_seconds", "exercise_variation"], where: { individual_workout_id: isIndividualWorkout ? workout_id : null, team_workout_id: !isIndividualWorkout ? workout_id : null} }
                 ],
                 where: {
                     day_of_week
                 }
             });
-            console.log(exercises)
-            return exercises;
+            return daysOfWeekWithExercises[0];
         } catch (error) {
             throw error;
         }

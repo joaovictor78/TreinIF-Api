@@ -23,8 +23,11 @@ class IndividualWorkoutsAdapter {
     }
     async updateWorkoutName(workout_name, workout_id){
         try {
-            await IndividualWorkouts.update({ name: workout_name }, { where: { id: workout_id } });
+            const { name } = workout_name;
+            console.log("aquiii", name, workout_id);
+            await IndividualWorkouts.update({ name }, { where: { id: workout_id } });
         } catch (error){
+            console.log(error);
             throw error;
         }
     }

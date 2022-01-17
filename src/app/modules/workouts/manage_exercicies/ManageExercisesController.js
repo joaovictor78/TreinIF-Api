@@ -24,8 +24,8 @@ class ManageExercisesController {
         try {
             const workout_id = req.params.id;
             const day_of_week = req.query.day_of_week;
-            ExercisesWorkoutAdapter.getAllExercisesByDayOfWeek(day_of_week, workout_id, req.query.type);
-            return res.status(200).send();
+            const exercises = await ExercisesWorkoutAdapter.getAllExercisesByDayOfWeek(day_of_week, workout_id, req.query.type);
+            return res.status(200).send(exercises);
         } catch (error) {
             return res.status(400).send({error})
         }

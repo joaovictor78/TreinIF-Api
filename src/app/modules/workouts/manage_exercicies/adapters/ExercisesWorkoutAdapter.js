@@ -28,6 +28,7 @@ class ExercisesWorkoutAdapter {
                     day_of_week
                 }
             });
+            console.log(daysOfWeekWithExercises);
             return daysOfWeekWithExercises[0];
         } catch (error) {
             throw error;

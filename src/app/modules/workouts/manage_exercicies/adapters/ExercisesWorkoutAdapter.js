@@ -4,11 +4,13 @@ const WorkoutsTypesEnum = require("../../../../utils/workouts_types_enum");
 class ExercisesWorkoutAdapter {
     async createExercise(exercise, daysOfWeeks = []) {
         try {
+            const exerciseDTO = await ExercisesWorkout.create(exercise);
+            console.log(exerciseDTO);
             daysOfWeeks.forEach(async (element) => {
                 const [ dayOfWeek ] = await DaysOfWeek.findOrCreate({ where: { day_of_week: element } });
-                const exerciseDTO = await ExercisesWorkout.create(exercise);
                 dayOfWeek.addExercise(exerciseDTO);
             });
+            return;
         } catch (error) {
             console.log(error);
             throw error;

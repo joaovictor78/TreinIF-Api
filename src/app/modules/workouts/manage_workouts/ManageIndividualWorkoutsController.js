@@ -17,7 +17,7 @@ class ManageIndividualWorkoutsController {
             const trainer_id = req.userId;
             const { name, athlete_id } = req.body;
             const is_active = false;
-            await individualWorkoutsAdapter.createWorkout({ name, is_active, athlete_id, trainer_id });
+            const workout = await individualWorkoutsAdapter.createWorkout({ name, is_active, athlete_id, trainer_id });
             return res.status(200).send();
         } catch (error) {
             console.log(error);

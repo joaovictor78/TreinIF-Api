@@ -13,8 +13,9 @@ class ManageExercisesController {
                 team_workout_id = req.params.id;
                 individual_workout_id = null;
             }
-            await ExercisesWorkoutAdapter.createExercise({ series_number, repeat_time_in_seconds, exercise_variation, exercise_type_id, individual_workout_id, team_workout_id }, days_of_week);
-            return res.status(200).send();
+            const exerciseDTO = { series_number, repeat_time_in_seconds, exercise_variation, exercise_type_id, individual_workout_id, team_workout_id };
+            const exerciseByDayOfWeekSelected = await ExercisesWorkoutAdapter.createExercise(exerciseDTO, days_of_week);
+            return res.status(200).send({exerciseByDayOfWeekSelected});
         } catch (error) {
             console.log(error);
             return res.status(400).send({ error: "There was an error creating the exercise" });

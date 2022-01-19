@@ -4,7 +4,7 @@ class IndividualWorkoutsAdapter {
     async createWorkout(workout) {
         try {
             console.log(workout);
-            await IndividualWorkouts.create(workout);
+            const workout = await IndividualWorkouts.create(workout);
             return;
         } catch (error) {
             throw error;

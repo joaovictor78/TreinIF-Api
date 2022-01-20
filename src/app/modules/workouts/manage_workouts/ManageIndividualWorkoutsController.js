@@ -36,9 +36,10 @@ class ManageIndividualWorkoutsController {
     }
     async updateTrainingStatus(req, res) {
         try {
+            console.log("caiu aqui");
             const { workout_id } = req.params;
             const trainer_id = req.userId;
-            const { athlete_id } = req.query;
+            const athlete_id = req.params.id;
             await individualWorkoutsAdapter.updateTrainingStatus(workout_id, athlete_id, trainer_id);
             return res.status(200).send({message: "Training status updated successfully"});
         } catch (error) {

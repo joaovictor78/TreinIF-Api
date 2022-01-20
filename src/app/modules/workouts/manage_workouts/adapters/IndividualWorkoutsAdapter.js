@@ -3,9 +3,8 @@ const { Op } = require("sequelize");
 class IndividualWorkoutsAdapter {
     async createWorkout(workout) {
         try {
-            console.log(workout);
-            const workout = await IndividualWorkouts.create(workout);
-            return;
+            const { id, name, is_active, athlete_id, trainer_id } = await IndividualWorkouts.create(workout);
+            return { id, name, is_active, athlete_id, trainer_id };
         } catch (error) {
             throw error;
         }

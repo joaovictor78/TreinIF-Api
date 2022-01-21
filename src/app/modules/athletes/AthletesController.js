@@ -111,8 +111,8 @@ class AthletesController{
     async updateValueOfDataPointOfAthlete(req, res){
         try{
             const value_data_point_id = req.params.value_data_point_id;
-            const data = req.body;
-            await updateValueDataPointHistoricOfAthleteUseCase.updateDataPointValue(data, value_data_point_id);
+            const date = req.body;
+            await updateValueDataPointHistoricOfAthleteUseCase.updateDataPointValue(date, value_data_point_id);
             return res.status(200).send();
         } catch(error){
             return res.status(400).send(error);

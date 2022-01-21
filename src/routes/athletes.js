@@ -7,8 +7,8 @@ route.post('/athletes/:id/historic/data-point/:data_point_id', AthletesControlle
 route.get('/athletes', AthletesController.getAllAthletesWithFilter);
 route.get('/athletes/by-individual-workouts', AthletesController.getAllAthletesByIndividualWorkouts);
 route.get('/athletes/:id/historic', AthletesController.getHistoricOfAthlete);
-route.put('/athletes/:id/historic/data-point/:data_point_id/value-data-point/:value_data_point_id', AthletesController.updateValueOfDataPointOfAthlete);
-route.put('/athletes/:id/historic/data-point/:data_point_id', AthletesController.updateDateDataPointOfAthlete);
+route.put('/athletes/:id/historic/data-points/:data_point_id/value-data-point/:value_data_point_id', AthletesController.updateValueOfDataPointOfAthlete);
+route.put('/athletes/:id/historic/data-points/:data_point_id', AthletesController.updateDateDataPointOfAthlete);
 route.delete('/athletes/:id/historic/:historic_id', AthletesController.removeDataPointOfAthlete);
 route.delete('/athletes/:id/historic/data-point/:data_point_id/value-data-point/:value_data_point_id', AthletesController.removeValueOfDataPointOfAthlete);
 module.exports = route;

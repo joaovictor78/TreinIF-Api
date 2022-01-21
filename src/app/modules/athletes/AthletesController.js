@@ -69,10 +69,9 @@ class AthletesController{
         try{
             const athlete_id = req.params.id;
             const trainer_id = req.userId;
-            const data_points_values = req.body.data_points_values;
             const date = req.body.date;
-            await addHistoricOfAthleteUseCase.addDataPoint(athlete_id, trainer_id, data_points_values, date);
-            return res.status(200).send();
+            const dataPoint = await addHistoricOfAthleteUseCase.addDataPoint(athlete_id, trainer_id, date);
+            return res.status(200).send(dataPoint);
         } catch(error){
             return res.status(400).send(error);
         }

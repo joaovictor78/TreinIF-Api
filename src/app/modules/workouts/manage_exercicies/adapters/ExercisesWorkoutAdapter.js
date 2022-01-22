@@ -12,7 +12,7 @@ class ExercisesWorkoutAdapter {
             });
             return;
         } catch (error) {
-            console.log(error);
+          //  console.log(error);
             throw error;
         }
     }
@@ -31,7 +31,7 @@ class ExercisesWorkoutAdapter {
                 }
             });
             console.log(daysOfWeekWithExercises);
-            return daysOfWeekWithExercises[0];
+            return daysOfWeekWithExercises;
         } catch (error) {
             console.log(error);
             throw error;

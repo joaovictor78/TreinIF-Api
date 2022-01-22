@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'days_of_week'
       });
     DaysOfWeek.associate = function (models) {
-        DaysOfWeek.belongsToMany(models.ExercisesWorkout, { foreignKey: 'day_of_week_id', through: 'exercises_days_of_week', as: 'exercises', });
+        DaysOfWeek.belongsToMany(models.ExercisesWorkout, { foreignKey: 'day_of_week_id', through: 'exercises_days_of_week', as: 'exercises' });
     }
     return DaysOfWeek;
 }

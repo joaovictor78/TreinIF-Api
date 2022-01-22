@@ -33,6 +33,7 @@ class ExercisesWorkoutAdapter {
             console.log(daysOfWeekWithExercises);
             return daysOfWeekWithExercises[0];
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }

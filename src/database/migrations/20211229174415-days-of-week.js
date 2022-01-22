@@ -12,7 +12,7 @@ module.exports = {
       day_of_week: {
         allowNull: false,
         unique: true,
-        type: Sequelize.ENUM("Sunday", "Monday", "Tuesday", "Wednersday", "Thursday", "Friday", "Saturday")
+        type: Sequelize.ENUM("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
       },
       created_at: {
         type: Sequelize.DATE,

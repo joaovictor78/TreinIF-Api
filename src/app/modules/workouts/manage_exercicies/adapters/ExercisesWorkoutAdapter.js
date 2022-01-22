@@ -31,7 +31,7 @@ class ExercisesWorkoutAdapter {
                 }
             });
             console.log(daysOfWeekWithExercises);
-            return daysOfWeekWithExercises.length == 0 ? [] : daysOfWeekWithExercises[0];
+            return daysOfWeekWithExercises.length == 0 ? {exercises: []} : daysOfWeekWithExercises[0];
         } catch (error) {
             console.log(error);
             throw error;

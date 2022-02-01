@@ -4,8 +4,9 @@ class ManageExercisesTypesController{
         try{
             const { exercise_type_name } = req.body;
             const trainer_id = req.userId;
-            await ExercisesTypesAdapter.createExerciseType({name: exercise_type_name, trainer_id});
-            return res.status(200).send();
+            const { id, name } =  await ExercisesTypesAdapter.createExerciseType({name: exercise_type_name, trainer_id});
+            console.log(id, name);
+            return res.status(200).send({exercise_type: { id, name }});
         }catch(error){
             console.log(error);
             return res.status(400).send({error: "An error occurred while creating a new exercise type"})

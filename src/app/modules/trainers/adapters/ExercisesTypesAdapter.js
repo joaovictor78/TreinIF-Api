@@ -2,7 +2,9 @@ const { ExerciseTypes } = require("../../../models");
 class ExercisesTypesAdapter {
     async createExerciseType(data) {
         try {
-            await ExerciseTypes.create(data);
+            const { id, name } = await ExerciseTypes.create(data);
+            console.log("asdfas", id)
+            return { id, name };
         } catch (error) {
             throw error;
         }

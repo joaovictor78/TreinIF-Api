@@ -26,6 +26,7 @@ class ExercisesTypesAdapter {
             throw error;
         }
     }
+    
     async removeExerciseType(exerciseTypeID) {
         try {
             await ExerciseTypes.destroy({ where: { id: exerciseTypeID } });

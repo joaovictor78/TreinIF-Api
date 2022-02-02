@@ -98,7 +98,6 @@ class AthletesController{
     }
     async addValueOfDataPointOfAthlete(req, res){
         try{
-            console.log("chamouuuu");
            const data_point_id = req.params.data_point_id;
            const{ type, value } = req.body; 
            const value_data_point = await addValueDataPointHistoricOfAthleteUseCase.addValueDataPoint({ type, value }, data_point_id);

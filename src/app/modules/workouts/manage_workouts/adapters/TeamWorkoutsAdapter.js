@@ -1,4 +1,5 @@
 const { TeamWorkouts } = require("../../../../models");
+const { Teams } = require("../../../../models");
 const { Op } = require("sequelize");
 class TeamWorkoutsAdapter {
     async createWorkout(workout) {
@@ -7,6 +8,20 @@ class TeamWorkoutsAdapter {
             await TeamWorkouts.create(workout);
             return;
         } catch (error) {
+            throw error;
+        }
+    }
+    async getAllAthletesOfTeam(team_id) {
+        try{
+            const team = await Teams.findByPk(team_id);
+            const athletes = await team.getAthletes();
+            console.log(athletes)
+            const athletesDTO = athletes.map((element) => {
+                const { id, birth_date, blood_type, CPF, RG, user_id, course_id } = element;
+                return { id, birth_date, blood_type, CPF, RG, user_id, course_id };
+            });
+            return athletesDTO;
+        } catch (error){
             throw error;
         }
     }

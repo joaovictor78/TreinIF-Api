@@ -16,8 +16,23 @@ function verifyToken(req, res, next){
     }
     return token;
 }
+
 exports.allUsers = async (req, res, next) => {
-    return next();
+    const token = verifyToken(req, res, next);
+    jwt.verify(token, process.env.APP_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).send({ erro: "Invalid token" })
+        } else{
+                req.role_id = decoded.role
+                req.userId = decoded.id
+                return next();
+          
+        }
+    })
+    //return next();
+}
+exports.acessWithoutToken = async (req, res, next) => {
+   return next();
 }
 exports.isAdmin = async (req, res, next) => { 
     const token = verifyToken(req, res, next);

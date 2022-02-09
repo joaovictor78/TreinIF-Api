@@ -3,6 +3,7 @@ const searchAthletesWithFilterUseCase = require("./usecases/search_athletes_whit
 const getAllAthletesByIndividualWorkoutsUseCase = require("./usecases/get_all_athletes_by_individual_workouts_usecase");
 const addHistoricOfAthleteUseCase = require("./usecases/add_historic_of_athlete_usecase");
 const addValueDataPointHistoricOfAthleteUseCase = require("./usecases/add_value_data_point_historic_of_athlete_usecase");
+const getAllAthletesWithHistoric = require("./usecases/get_list_all_athletes_with_historic");
 const getHistoricOfAthleteUseCase = require("./usecases/get_historic_of_athlete_usecase");
 const deleteDataPointOfAthleteUseCase = require("./usecases/delete_data_point_historic_of_athlete_usecase");
 const deleteValueDataPointHistoricOfAthleteUseCase = require("./usecases/delete_value_data_point_historic_of_athlete_usecase");
@@ -45,6 +46,15 @@ class AthletesController{
             return res.status(400).send({message: "An error occurred while making the query."});
         }
     }
+    async getAllAthletesWithHistoric(req, res) {
+        try {
+            const trainer_id = req.userId;
+            const athletes = await getAllAthletesWithHistoric.getAllAthletes(trainer_id);
+            return res.status(200).send(athletes);
+        } catch(error){
+            return res.status(400).send({message: "An error occurred while making the query."});
+        }
+    }
     async getAllAthletesByIndividualWorkouts(req, res){
         try{
             const trainer_id = req.userId;
@@ -80,7 +90,6 @@ class AthletesController{
         try{
             const data_point_id = req.params.data_point_id;
             const date = req.body.date;
-            console.log("chamou", date, data_point_id);
             await updateDataPointHistoricOfAthleteUseCase.updateDate(date, data_point_id);
             return res.status(200).send();
         } catch(error){

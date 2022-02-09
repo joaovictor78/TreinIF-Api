@@ -4,7 +4,6 @@ const { Op } = require("sequelize");
 class TeamWorkoutsAdapter {
     async createWorkout(workout) {
         try {
-            console.log(workout);
             await TeamWorkouts.create(workout);
             return;
         } catch (error) {
@@ -27,7 +26,6 @@ class TeamWorkoutsAdapter {
     }
     async getAllTeamWorkouts(team_id) {
         try {
-            console.log(team_id)
             const { count: size, rows: workouts } = await TeamWorkouts.findAndCountAll({
                 where: {
                     team_id
@@ -43,12 +41,28 @@ class TeamWorkoutsAdapter {
         try {
             await TeamWorkouts.update({ is_active: true }, { where: { team_id, id: workout_id } });
             await TeamWorkouts.update({ is_active: false }, { where: { team_id, [Op.not]: { id: workout_id } } });
+            return;
         } catch (error) {
             console.log(error);
             throw error;
         }
     }
-
+   async updateWorkoutName(workout_id, team_id, workout_name) {
+       try {
+           await TeamWorkouts.update({name: workout_name}, { where: { team_id, id: workout_id }});
+           return;
+       } catch (error){
+           throw error;
+       }
+   }
+   async removeWorkout(workout_id, team_id) {
+       try{
+           await TeamWorkouts.destroy({ where: { team_id, id: workout_id } });
+           return;
+       } catch(error){
+           throw error;
+       }
+   }
 }
 
 module.exports = new TeamWorkoutsAdapter();

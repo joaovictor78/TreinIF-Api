@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         field: 'RG'}
     });
     AthleteData.associate = function (models) {
+        AthleteData.hasMany(models.DataPointOfAthleteHistoric, {foreignKey: 'athlete_id', as: 'athlete'});
         AthleteData.belongsToMany(models.Teams, { foreignKey: 'team_id',  through: 'athlete_team', as: 'team', });
         AthleteData.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
         AthleteData.belongsTo(models.Courses, { foreignKey: 'course_id', as: 'course' });

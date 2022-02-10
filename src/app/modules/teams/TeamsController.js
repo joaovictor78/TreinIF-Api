@@ -3,6 +3,7 @@ const createTeamUseCase = require("./usecases/CreateTeamUseCase");
 const getTeamsUseCase = require("./usecases/GetTeamsUseCase");
 const getAllAthletesOfTeam = require("./usecases/GetAllAthletesOfTeamUseCase");
 const addAthleteToTeam = require("./usecases/AddAthleteToTeamUseCase");
+const RolesEnum = require("./../../utils/roles_enum");
 class TeamsController {
     async generateTeamCode(req, res) {
         try {
@@ -25,10 +26,16 @@ class TeamsController {
     }
     async getTeams(req, res) {
         try {
-            const trainer_id = req.userId;
-            const teams = await getTeamsUseCase.getTeams(trainer_id);
-            res.status(200).send(teams);
+            const userId = req.userId;
+            let teams;
+            if(req.role_id === RolesEnum.Athlete){
+                teams = await getTeamsUseCase.getTeams(null, userId);
+            } else{
+                teams = await getTeamsUseCase.getTeams(userId, null);
+            }
+            return res.status(200).send(teams);
         } catch (error) {
+            console.log(error);
             return res.status(400).send({ error });
         }
     }

@@ -23,10 +23,10 @@ class TeamAdapter {
             throw error;
         }
     }
-    async getTeams(trainer_id) {
+    async getTeamsAsTrainer(trainer_id){
         try {
             const teams = await Teams.findAll({
-                where: { trainer_id },
+                where: trainer_id == null ? { athlete_id } : { trainer_id },
                 attributes: ["id", "name", "description", "trainer_id"],
                 include: [
                     { association: "code", attributes: ["id", "code"] },
@@ -34,6 +34,29 @@ class TeamAdapter {
                 ]
             });
             return teams;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async getTeamsAsAthlete(trainer_id, user_id) {
+        try {
+        
+            const athlete = await AthleteData.findOne({ user_id });
+            const teams = await athlete.getTeam();
+            const teamsDTO = await Promise.all(teams.map(async (element)  =>  {
+                const { id, name, description, trainer_id } = element;
+                const { code, modality } = await Teams.findOne({
+                    where:  { id },
+                    attributes: [],
+                    include: [
+                        { association: "code", attributes: ["id", "code"] },
+                        { association: "modality", attributes: ["id", "name"] }
+                    ]
+                });
+                return  { id, name, description, trainer_id,  code, modality  };
+            }));
+            return teamsDTO;
         } catch (error) {
             throw error;
         }

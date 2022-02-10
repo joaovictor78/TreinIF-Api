@@ -1,8 +1,13 @@
 const teamAdapter = require("../adapters/TeamAdapter");
 class GetTeamsUseCase{
-  async getTeams(trainer_id){
+  async getTeams(trainer_id, athlete_id){
         try{
-            const teams = await teamAdapter.getTeams(trainer_id);
+            let teams;
+            if(trainer_id == null){
+                teams = await teamAdapter.getTeamsAsAthlete(athlete_id);
+            } else {
+                teams = await teamAdapter.getTeamsAsTrainer(trainer_id);
+            }
             console.log(teams);
             return teams;
         }catch(error){

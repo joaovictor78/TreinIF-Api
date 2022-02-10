@@ -1,7 +1,8 @@
 const createTeamCodeUseCase = require("./usecases/CreateTeamCodeUseCase");
 const createTeamUseCase = require("./usecases/CreateTeamUseCase");
 const getTeamsUseCase = require("./usecases/GetTeamsUseCase");
-const getAllAthletesOfTeam = require("./usecases/GetAllAthletesOfTeamUseCase")
+const getAllAthletesOfTeam = require("./usecases/GetAllAthletesOfTeamUseCase");
+const addAthleteToTeam = require("./usecases/AddAthleteToTeamUseCase");
 class TeamsController {
     async generateTeamCode(req, res) {
         try {
@@ -37,6 +38,15 @@ class TeamsController {
             const athletes = await getAllAthletesOfTeam.getAll(team_id);
             return athletes;
         } catch (error) {
+            return res.status(400).send(error);
+        }
+    }
+    async addAthleteToTeam(req, res) {
+        try{
+            const athlete_id = req.userId;
+            const code = req.params.code;
+            await addAthleteToTeam.addAthleteToTeam(code, athlete_id);
+        } catch(error) {
             return res.status(400).send(error);
         }
     }

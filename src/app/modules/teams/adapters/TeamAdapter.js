@@ -1,5 +1,6 @@
 const { Teams } = require("../../../models");
 const { AthleteData } = require("../../../models");
+const { TeamCode } = require("../../../models");
 class TeamAdapter {
     async createTeam(team) {
         try {
@@ -49,13 +50,16 @@ class TeamAdapter {
             throw error;
         }
     }
-    async addAthleteToTeam(team_id, athlete_id){
+    async addAthleteToTeam(code, athlete_id){
         try {
             const athlete = await AthleteData.findByPk(athlete_id);
-            const team = Teams.findByPk(team_id);
+            const team_code = await TeamCode.findOne({where: { code },   include: [
+                { association: "team" } ] });
+            const team = await Teams.findByPk(team_code.team.id);
             await team.addAthlete(athlete);
             return;
         } catch(error){
+            console.log(error);
             throw error;
         }
     }

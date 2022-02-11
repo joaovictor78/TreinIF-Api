@@ -88,7 +88,7 @@ class TeamAdapter {
             console.log(team_code)
             const team = await Teams.findByPk(team_code.team.id);
             await team.addAthlete(athlete);
-            return;
+            return team;
         } catch(error){
             console.log(error);
             throw error;

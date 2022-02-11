@@ -63,13 +63,20 @@ class TeamAdapter {
     }
     async getAllAthletesOfTeam(team_id){
         try {
-            const athletes = await Teams.getAthletes({
-                where: {
-                    team_id
-                }
+            const team = await Teams.findByPk(team_id);
+            const athletes = await team.getAthletes({include: [
+                {association: 'users'},
+                {association: 'course'}
+            ]});
+            const athletesDTO = athletes.map((element) => {
+                const { id, birth_date, blood_type, CPF, RG, user_id } = element;
+                const { id:course_id, name }  = element.course;
+                const { full_name, email, avatar_url } = element.users;  
+                return { id,  full_name, email, avatar_url, birth_date, blood_type, CPF, RG, user_id, course: { id:course_id, name } };
             });
-            return athletes;
+            return athletesDTO;
         } catch(error){
+            console.log(error);
             throw error;
         }
     }

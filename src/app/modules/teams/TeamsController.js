@@ -42,8 +42,8 @@ class TeamsController {
     async getAllAthletesOfTeams(req, res) {
         try { 
             const team_id = req.params.id;
-            const athletes = await getAllAthletesOfTeam.getAll(team_id);
-            return athletes;
+            const athletes = await getAllAthletesOfTeam.getAllAthletes(team_id);
+            return res.status(200).send(athletes);
         } catch (error) {
             return res.status(400).send(error);
         }

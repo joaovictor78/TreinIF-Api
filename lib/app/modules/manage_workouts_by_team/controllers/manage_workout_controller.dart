@@ -52,6 +52,16 @@ class ManageWorkoutController extends GetxController {
     exercises.value = response.data;
   }
 
+  getExercisesByDayOfWeekAsAthlete(String dayOfWeek) async {
+    final response = await getAllTeamExercisesByDayOfWeekAsAthleteUseCase(
+        teamEntity.id!, dayOfWeek);
+    if (!response.success) {
+      return CustomToast.showToast("Ocorreu um erro ao pegar os exercicios!",
+          backgroundColor: Colors.red);
+    }
+    exercises.value = response.data!;
+  }
+
   getAllAthletesOfTeam() async {
     final response = await getAllAthletesOfTeamUseCase(teamEntity.id!);
     if (!response.success) {

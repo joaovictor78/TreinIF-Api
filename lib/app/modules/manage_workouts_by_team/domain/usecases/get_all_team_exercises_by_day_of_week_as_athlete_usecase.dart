@@ -8,7 +8,9 @@ class GetAllTeamExercisesByDayOfWeekAsAthleteUseCase {
   final IGetAllTeamExercisesByDayOfWeekAsAthleteRepository
       _iGetAllTeamExercisesByDayOfWeekAsAthleteRepository;
 
-  Future<ReturnData<List<ExerciseEntity>>> call() async {
-    return _iGetAllTeamExercisesByDayOfWeekAsAthleteRepository();
+  Future<ReturnData<List<ExerciseEntity>>> call(
+      int teamID, String dayOfWeek) async {
+    return _iGetAllTeamExercisesByDayOfWeekAsAthleteRepository(
+        teamID, dayOfWeek);
   }
 }

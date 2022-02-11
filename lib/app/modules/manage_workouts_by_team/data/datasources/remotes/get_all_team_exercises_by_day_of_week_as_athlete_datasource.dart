@@ -10,7 +10,8 @@ class GetAllTeamExercisesByDayOfWeekAsAthleteDataSource
   final IHttpClient _client;
 
   @override
-  Future<ReturnData<List<ExerciseEntity>>> call() async {
+  Future<ReturnData<List<ExerciseEntity>>> call(
+      int teamID, String dayOfWeek) async {
     try {
       final response = await _client.get("/");
       ExercisesDTO exercisesDTO = ExercisesDTO.fromJson(response.data);

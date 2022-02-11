@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import '/app/modules/manage_individual_workout/data/datasources/get_individual_exercises_by_day_of_week_as_athlete_datasource.dart';
+import '/app/modules/manage_individual_workout/data/repositories/get_individual_exercises_by_day_of_week_as_athlete_repository.dart';
+import '/app/modules/manage_individual_workout/domain/usecases/get_individual_exercises_by_day_of_week_as_athlete_usecase.dart';
 import '/app/modules/manage_individual_workout/data/datasources/remove_exercise_datasource.dart';
 import '/app/modules/manage_individual_workout/data/repositories/remove_exercise_repository.dart';
 import '/app/modules/manage_individual_workout/domain/usecases/remove_exercise_usecase.dart';
@@ -21,8 +24,16 @@ class ManageIndividualWorkoutBiding extends Bindings {
         Get.find<GetExercisesByDayOfWeekDataSource>()));
     Get.lazyPut(() => GetExercisesByDayOfWeekUseCase(
         Get.find<GetExercisesByDayOfWeekRepository>()));
+
+    Get.lazyPut(() => GetIndividualExercisesByDayOfWeekAsAthleteDataSource(
+        Get.find<CustomDio>()));
+    Get.lazyPut(() => GetIndividualExercisesByDayOfWeekAsAthleteRepository(
+        Get.find<GetIndividualExercisesByDayOfWeekAsAthleteDataSource>()));
+    Get.lazyPut(() => GetIndividualExercisesByDayOfWeekAsAthleteUseCase(
+        Get.find<GetIndividualExercisesByDayOfWeekAsAthleteRepository>()));
     Get.lazyPut(() => ManageIndividualWorkoutController(
         getExercisesByDayOfWeekUseCase: Get.find(),
+        getIndividualExercisesByDayOfWeekAsAthleteUseCase: Get.find(),
         removeExerciseUseCase: Get.find()));
   }
 }

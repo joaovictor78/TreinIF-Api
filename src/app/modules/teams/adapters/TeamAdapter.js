@@ -80,9 +80,9 @@ class TeamAdapter {
             throw error;
         }
     }
-    async addAthleteToTeam(code, athlete_id){
+    async addAthleteToTeam(code, user_id){
         try {
-            const athlete = await AthleteData.findByPk(athlete_id);
+            const athlete = await AthleteData.findOne({user_id});
             const team_code = await TeamCode.findOne({where: { code },   include: [
                 { association: "team" } ] });
             console.log(team_code)

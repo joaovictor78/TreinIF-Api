@@ -50,7 +50,7 @@ class TeamsController {
     }
     async addAthleteToTeam(req, res) {
         try{
-            const athlete_id = req.userId;
+            const user_id = req.userId;
             const code = req.params.code;
             const team = await addAthleteToTeam.addAthleteToTeam(code, athlete_id);
             return res.status(200).send(team);

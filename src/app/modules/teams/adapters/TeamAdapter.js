@@ -85,6 +85,7 @@ class TeamAdapter {
             const athlete = await AthleteData.findByPk(athlete_id);
             const team_code = await TeamCode.findOne({where: { code },   include: [
                 { association: "team" } ] });
+            console.log(team_code)
             const team = await Teams.findByPk(team_code.team.id);
             await team.addAthlete(athlete);
             return;

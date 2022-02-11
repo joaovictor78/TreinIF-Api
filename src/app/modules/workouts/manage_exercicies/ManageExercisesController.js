@@ -31,6 +31,27 @@ class ManageExercisesController {
             return res.status(400).send({error})
         }
     }
+    async getIndividualExercisesByDayOfWeekAsAthlete(req, res) {
+        try{
+            const athlete_id = req.params.id;
+            const { day_of_week } = req.query;
+            const exercises = await ExercisesWorkoutAdapter.getAllIndividualExercisesByDayOfWeekAsAthlete(athlete_id, day_of_week);
+            return res.status(200).send(exercises);
+        } catch(error){
+            console.log(error);
+            return res.status(400).send({error});
+        }
+    }
+    async getTeamExercisesByDayOfWeekAsAthlete(req, res) {
+        try{
+            const team_id = req.params.id;
+            const { day_of_week } = req.query;
+            const exercises = await ExercisesWorkoutAdapter.getAllTeamExercisesByDayOfWeekAsAthlete(team_id, day_of_week);
+            return res.status(200).send(exercises);
+        } catch(error){
+            return res.status(400).send({error});
+        }
+    }
     async removeExercise(req, res){
         try {
             const exercise_id = req.params.id;

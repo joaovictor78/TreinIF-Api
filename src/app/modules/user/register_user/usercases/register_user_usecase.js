@@ -15,8 +15,8 @@ class RegisterUserUseCase {
       if (user === null) {
         throw "User already exists!"
       }
-      const acess_token = GenerateTokenProvider.execute({ id: user.id, role: user.role });
-      const refresh_token = await GenereteRefreshTokenProvider.execute(user.id);
+      const acess_token = GenerateTokenProvider.execute(user.id, user.role_id);
+      const refresh_token = await GenerateRefreshTokenProvider.execute(user.id);
       console.log(user.id);
       if (user.role_id == RolesEnum.Athlete) {
         const { blood_type, birth_date, CPF, RG, course_id, role_id } = this.user;
